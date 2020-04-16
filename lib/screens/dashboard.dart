@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_buddy/widgets/best_seller_carousel.dart';
 
 class DashboardScreen extends StatefulWidget {
   DashboardScreen({Key key}) : super(key: key);
@@ -69,29 +70,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                   ),
                   Text(
-                    "...",
+                    "See All",
                     style: TextStyle(
-                      fontSize: 24.0,
+                      fontSize: 14.0,
+                      letterSpacing: 1.0,
                       color: Color(0xFF534747),
                     ),
                   ),
                 ],
               ),
             ),
-            Container(
-              height: 100,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  Text("Hello World"),
-                  Text("Hello World"),
-                  Text("Hello World"),
-                  Text("Hello World"),
-                  Text("Hello World"),
-                  Text("Hello World"),
-                ],
-              ),
-            ),
+            BestSellerCarousel(),
+            SizedBox(height: 100),
           ],
         ),
       ),
