@@ -11,23 +11,88 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: FlatButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          color: Color(0xFF3D39E4),
-          textColor: Colors.white,
-          disabledColor: Colors.grey,
-          disabledTextColor: Colors.black,
-          splashColor: Colors.blueAccent,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text(
-            "Login",
-            style: TextStyle(fontSize: 14.0),
-          ),
+      body: SafeArea(
+        child: ListView(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                Image(
+                  image: AssetImage('assets/dashbg.png'),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 10,
+                    right: 10,
+                    top: 20,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Image(
+                        image: AssetImage('assets/logoSmall.png'),
+                      ),
+                      Container(
+                        height: 50,
+                        width: 300,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25.0),
+                          color: Color(0xFFE3D9D9),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Type Keywords...",
+                              style: TextStyle(
+                                color: Color(0xFF7B7676),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    "Best Sellers",
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      color: Color(0xFF534747),
+                    ),
+                  ),
+                  Text(
+                    "...",
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      color: Color(0xFF534747),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 100,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  Text("Hello World"),
+                  Text("Hello World"),
+                  Text("Hello World"),
+                  Text("Hello World"),
+                  Text("Hello World"),
+                  Text("Hello World"),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

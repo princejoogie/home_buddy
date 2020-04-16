@@ -118,16 +118,16 @@ class _LoginScreenState extends State<LoginScreen> {
       _showError("One or more fields are empty.");
     } else {
       var stmt = "http://192.168.1.5/home_buddy_crud/api/login.php?uname=" +
-          username.text +
+          username.text.trim() +
           "&pw=" +
-          password.text;
+          password.text.trim();
       final response = await http.get(
         stmt,
       );
 
       var userData = json.decode(response.body);
       if (userData.length == 0) {
-        _showError("User not Found.");
+        _showError("Login Failed.");
       } else {
         Navigator.push(
           context,
