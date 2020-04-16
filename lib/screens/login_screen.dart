@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:home_buddy/screens/dashboard.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' show json;
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -6,6 +9,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController username = new TextEditingController();
+  TextEditingController password = new TextEditingController();
+
   Widget _buildInputForm() {
     return Padding(
       padding: EdgeInsets.all(20.0),
@@ -30,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Padding(
               padding: EdgeInsets.all(8.0),
               child: TextField(
+                controller: username,
                 keyboardType: TextInputType.emailAddress,
                 textAlignVertical: TextAlignVertical.center,
                 style: TextStyle(
@@ -61,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Padding(
               padding: EdgeInsets.all(8.0),
               child: TextField(
+                controller: password,
                 obscureText: true,
                 textAlignVertical: TextAlignVertical.center,
                 style: TextStyle(
@@ -76,6 +84,60 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       ),
     );
+  }
+
+  _showError(String msg) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(msg),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _login() async {
+    if (username.text.length <= 0 || password.text.length <= 0) {
+      _showError("One or more fields are empty.");
+    } else {
+      var stmt = "http://192.168.1.5/home_buddy_crud/api/login.php?uname=" +
+          username.text +
+          "&pw=" +
+          password.text;
+      final response = await http.get(
+        stmt,
+      );
+
+      var userData = json.decode(response.body);
+      if (userData.length == 0) {
+        _showError("User not Found.");
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => DashboardScreen(),
+          ),
+        );
+      }
+      print(response.body);
+    }
   }
 
   @override
@@ -144,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             disabledTextColor: Colors.black,
                             splashColor: Colors.blueAccent,
                             onPressed: () {
-                              /*...*/
+                              _login();
                             },
                             child: Text(
                               "Login",
