@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:home_buddy/screens/dashboard.dart';
 import './screens/login_screen.dart';
 
 void main() {
