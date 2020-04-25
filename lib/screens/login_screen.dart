@@ -10,6 +10,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController username = new TextEditingController();
   TextEditingController password = new TextEditingController();
+  bool _loading = false;
 
   Widget _buildInputForm() {
     return Padding(
@@ -129,6 +130,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (response.statusCode == 200) {
         if (response.body == 'success') {
+          setState(() {
+            _loading = false;
+          });
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -142,6 +146,9 @@ class _LoginScreenState extends State<LoginScreen> {
         _showError("Network Error", "Error Connecting");
       }
     }
+    setState(() {
+      _loading = false;
+    });
   }
 
   @override
@@ -214,12 +221,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                 disabledTextColor: Colors.black,
                                 splashColor: Colors.blueAccent,
                                 onPressed: () {
+                                  setState(() {
+                                    _loading = true;
+                                  });
                                   _login();
                                 },
-                                child: Text(
-                                  "Login",
-                                  style: TextStyle(fontSize: 14.0),
-                                ),
+                                child: _loading
+                                    ? CircularProgressIndicator()
+                                    : Text(
+                                        "Login",
+                                        style: TextStyle(fontSize: 14.0),
+                                      ),
                               ),
                             ),
                           ),

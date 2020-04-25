@@ -59,19 +59,19 @@ class _HomeTabState extends State<HomeTab> {
           ProductList(
             'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=Meat%20and%20Seafood',
             'Meat and Seafood',
-            Color(0xFFffecc7),
+            Color(0xFFF0EAEA),
           ),
           SizedBox(height: 10),
           ProductList(
             'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=fruits%20and%20vegetables',
             'Fruits and Vegetables',
-            Color(0xFFffecc7),
+            Color(0xFFF0EAEA),
           ),
           SizedBox(height: 10),
           ProductList(
             'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=Frozen',
             'Frozen',
-            Color(0xFFffecc7),
+            Color(0xFFF0EAEA),
           ),
           SizedBox(height: 10),
         ],
