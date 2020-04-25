@@ -1,11 +1,11 @@
 class Product {
-  int id;
-  String name;
-  String category;
-  List<String> price;
-  int stock;
-  String description;
-  String imageUrl;
+  var id;
+  var name;
+  var category;
+  var price;
+  var stock;
+  var description;
+  var imageUrl;
 
   Product({
     this.id,
@@ -16,4 +16,26 @@ class Product {
     this.description,
     this.imageUrl,
   });
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['id'],
+      name: json['name'],
+      category: json['category'],
+      price: json['price'],
+      stock: json['stock'],
+      description: json['description'],
+      imageUrl: json['image_url'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'category': category,
+        'price': price,
+        'stock': stock,
+        'description': description,
+        'image_url': imageUrl,
+      };
 }

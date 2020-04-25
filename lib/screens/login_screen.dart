@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:home_buddy/screens/dashboard.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert' show json;
+import 'dart:convert';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -86,13 +86,13 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  _showError(String msg) {
+  _showError(String title, String msg) {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Error'),
+          title: Text(title),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -115,28 +115,33 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _login() async {
     if (username.text.length <= 0 || password.text.length <= 0) {
-      _showError("One or more fields are empty.");
+      _showError("Warning", "One or more fields are empty.");
     } else {
-      var stmt = "http://192.168.1.5/home_buddy_crud/api/login.php?uname=" +
-          username.text.trim() +
-          "&pw=" +
-          password.text.trim();
-      final response = await http.get(
-        stmt,
+      var uname = username.text.trim();
+      var pw = password.text.trim();
+
+      final response = await http.post(
+        'http://192.168.1.6/home_buddy_crud/api/login.php',
+        body: {
+          'uname': uname,
+          'password': pw,
+        },
       );
 
-      var userData = json.decode(response.body);
-      if (userData.length == 0) {
-        _showError("Login Failed.");
+      if (response.statusCode == 200) {
+        if (response.body == 'success') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => DashboardScreen(),
+            ),
+          );
+        } else {
+          _showError("Login Failed", response.body);
+        }
       } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => DashboardScreen(),
-          ),
-        );
+        _showError("Network Error", "Error Connecting");
       }
-      print(response.body);
     }
   }
 
@@ -169,56 +174,64 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             Center(
-              child: Container(
-                height: 260,
-                width: 300,
-                decoration: BoxDecoration(
-                  color: Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0.0, 2.0),
-                      blurRadius: 10,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    height: 260,
+                    width: 300,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFFFFFFF),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0.0, 2.0),
+                          blurRadius: 10,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Stack(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 20,
-                        left: 20,
-                        right: 20,
-                      ),
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          width: double.infinity,
-                          height: 40,
-                          child: FlatButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            color: Color(0xFF3D39E4),
-                            textColor: Colors.white,
-                            disabledColor: Colors.grey,
-                            disabledTextColor: Colors.black,
-                            splashColor: Colors.blueAccent,
-                            onPressed: () {
-                              _login();
-                            },
-                            child: Text(
-                              "Login",
-                              style: TextStyle(fontSize: 14.0),
+                    child: Stack(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 20,
+                            left: 20,
+                            right: 20,
+                          ),
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              width: double.infinity,
+                              height: 40,
+                              child: FlatButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                color: Color(0xFF3D39E4),
+                                textColor: Colors.white,
+                                disabledColor: Colors.grey,
+                                disabledTextColor: Colors.black,
+                                splashColor: Colors.blueAccent,
+                                onPressed: () {
+                                  _login();
+                                },
+                                child: Text(
+                                  "Login",
+                                  style: TextStyle(fontSize: 14.0),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                        _buildInputForm(),
+                      ],
                     ),
-                    _buildInputForm(),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 10.0),
+                  Text("Register"),
+                ],
               ),
             ),
           ],

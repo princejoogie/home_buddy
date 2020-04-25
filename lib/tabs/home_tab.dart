@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:home_buddy/widgets/best_seller_carousel.dart';
+import 'package:home_buddy/models/frozen.dart';
+import 'package:home_buddy/models/fruits_and_vegetables.dart';
+import 'package:home_buddy/models/meat_and_seafood.dart';
 
 class HomeTab extends StatefulWidget {
   HomeTab({Key key}) : super(key: key);
@@ -56,31 +58,12 @@ class _HomeTabState extends State<HomeTab> {
               ),
             ],
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 20, left: 25, right: 25, bottom: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  "Meat and Seafood",
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    color: Color(0xFF534747),
-                  ),
-                ),
-                Text(
-                  "See All",
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    letterSpacing: 1.0,
-                    color: Color(0xFF534747),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          BestSellerCarousel(),
-          SizedBox(height: 100),
+          MeatAndSeafood(),
+          SizedBox(height: 10),
+          FruitsAndVegetables(),
+          SizedBox(height: 10),
+          Frozen(),
+          SizedBox(height: 10),
         ],
       ),
     );
