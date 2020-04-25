@@ -5,31 +5,27 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ProductList extends StatefulWidget {
-  String _url, _title;
-  Color _color;
+  final String url, title;
+  final Color color;
 
-  ProductList(String url, String title, Color color) {
-    _url = url;
-    _title = title;
-    _color = color;
-  }
+  ProductList({this.url, this.title, this.color});
 
   @override
-  _ProductListState createState() => _ProductListState(_url, _title, _color);
+  _ProductListState createState() => _ProductListState(
+        url: url,
+        title: title,
+        color: color,
+      );
 }
 
 class _ProductListState extends State<ProductList> {
   var baseUrl = "http://192.168.1.6/home_buddy_crud/images/";
-  var _url, _title, _color;
+  var url, title, color;
 
-  _ProductListState(String url, String title, Color color) {
-    _url = url;
-    _title = title;
-    _color = color;
-  }
+  _ProductListState({this.url, this.title, this.color});
 
   Future<List<Product>> _fetchProducts() async {
-    final response = await http.get(_url);
+    final response = await http.get(url);
 
     var data = json.decode(response.body);
 
@@ -53,7 +49,7 @@ class _ProductListState extends State<ProductList> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                _title,
+                title,
                 style: TextStyle(
                   fontSize: 24.0,
                   color: Color(0xFF534747),
@@ -107,7 +103,7 @@ class _ProductListState extends State<ProductList> {
                           width: 250.0,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
-                            color: _color,
+                            color: color,
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.grey,
@@ -149,7 +145,7 @@ class _ProductListState extends State<ProductList> {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(10.0),
-                                        color: _color.withOpacity(0.7),
+                                        color: Color(0xFFF0EAEA),
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.all(10.0),
@@ -173,7 +169,7 @@ class _ProductListState extends State<ProductList> {
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Text(
-                                      finalPrice,
+                                      finalPrice.trim(),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ],

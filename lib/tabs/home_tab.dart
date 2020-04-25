@@ -57,21 +57,24 @@ class _HomeTabState extends State<HomeTab> {
             ],
           ),
           ProductList(
-            'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=Meat%20and%20Seafood',
-            'Meat and Seafood',
-            Color(0xFFF0EAEA),
+            url:
+                'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=Meat%20and%20Seafood',
+            title: 'Meat and Seafood',
+            color: Color(0xFFFFFFFF),
           ),
           SizedBox(height: 10),
           ProductList(
-            'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=fruits%20and%20vegetables',
-            'Fruits and Vegetables',
-            Color(0xFFF0EAEA),
+            url:
+                'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=fruits%20and%20vegetables',
+            title: 'Fruits and Vegetables',
+            color: Color(0xFFFFFFFF),
           ),
           SizedBox(height: 10),
           ProductList(
-            'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=Frozen',
-            'Frozen',
-            Color(0xFFF0EAEA),
+            url:
+                'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=Frozen',
+            title: 'Frozen',
+            color: Color(0xFFFFFFFF),
           ),
           SizedBox(height: 10),
         ],

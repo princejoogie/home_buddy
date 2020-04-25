@@ -130,6 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (response.statusCode == 200) {
         if (response.body == 'success') {
+          if (!mounted) return;
           setState(() {
             _loading = false;
           });
@@ -146,6 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
         _showError("Network Error", "Error Connecting");
       }
     }
+    if (!mounted) return;
     setState(() {
       _loading = false;
     });
@@ -215,7 +217,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                color: Color(0xFF3D39E4),
+                                color: Color(0xFF002CB8),
                                 textColor: Colors.white,
                                 disabledColor: Colors.grey,
                                 disabledTextColor: Colors.black,
@@ -227,7 +229,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   _login();
                                 },
                                 child: _loading
-                                    ? CircularProgressIndicator()
+                                    ? Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 5.0, bottom: 5.0),
+                                        child: CircularProgressIndicator(),
+                                      )
                                     : Text(
                                         "Login",
                                         style: TextStyle(fontSize: 14.0),
