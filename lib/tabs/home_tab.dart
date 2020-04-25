@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:home_buddy/models/frozen.dart';
-import 'package:home_buddy/models/fruits_and_vegetables.dart';
-import 'package:home_buddy/models/meat_and_seafood.dart';
+import 'package:home_buddy/models/product_list.dart';
 
 class HomeTab extends StatefulWidget {
   HomeTab({Key key}) : super(key: key);
@@ -58,11 +56,23 @@ class _HomeTabState extends State<HomeTab> {
               ),
             ],
           ),
-          MeatAndSeafood(),
+          ProductList(
+            'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=Meat%20and%20Seafood',
+            'Meat and Seafood',
+            Color(0xFFffecc7),
+          ),
           SizedBox(height: 10),
-          FruitsAndVegetables(),
+          ProductList(
+            'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=fruits%20and%20vegetables',
+            'Fruits and Vegetables',
+            Color(0xFFffecc7),
+          ),
           SizedBox(height: 10),
-          Frozen(),
+          ProductList(
+            'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=Frozen',
+            'Frozen',
+            Color(0xFFffecc7),
+          ),
           SizedBox(height: 10),
         ],
       ),

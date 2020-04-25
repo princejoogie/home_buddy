@@ -3,18 +3,32 @@ import 'package:home_buddy/models/product_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class MeatAndSeafood extends StatefulWidget {
+class ProductList extends StatefulWidget {
+  String _url, _title;
+  Color _color;
+
+  ProductList(String url, String title, Color color) {
+    _url = url;
+    _title = title;
+    _color = color;
+  }
+
   @override
-  _MeatAndSeafoodState createState() => _MeatAndSeafoodState();
+  _ProductListState createState() => _ProductListState(_url, _title, _color);
 }
 
-class _MeatAndSeafoodState extends State<MeatAndSeafood> {
+class _ProductListState extends State<ProductList> {
   var baseUrl = "http://192.168.1.6/home_buddy_crud/images/";
+  var _url, _title, _color;
+
+  _ProductListState(String url, String title, Color color) {
+    _url = url;
+    _title = title;
+    _color = color;
+  }
 
   Future<List<Product>> _fetchProducts() async {
-    final response = await http.get(
-      'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=Meat%20and%20Seafood',
-    );
+    final response = await http.get(_url);
 
     var data = json.decode(response.body);
 
@@ -38,7 +52,7 @@ class _MeatAndSeafoodState extends State<MeatAndSeafood> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                "Meat and Seafood",
+                _title,
                 style: TextStyle(
                   fontSize: 24.0,
                   color: Color(0xFF534747),
@@ -83,7 +97,7 @@ class _MeatAndSeafoodState extends State<MeatAndSeafood> {
                         width: 250.0,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
-                          color: Color(0xFFffecc7),
+                          color: _color,
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey,
@@ -121,7 +135,7 @@ class _MeatAndSeafoodState extends State<MeatAndSeafood> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10.0),
-                                      color: Color(0xFFffecc7).withOpacity(0.7),
+                                      color: _color.withOpacity(0.7),
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.all(10.0),
