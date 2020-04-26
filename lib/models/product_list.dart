@@ -19,7 +19,7 @@ class ProductList extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductList> {
-  var baseUrl = "http://192.168.1.6/home_buddy_crud/images/";
+  var baseUrl = "http://192.168.1.4/home_buddy_crud/images/";
   var url, title, color;
 
   _ProductListState({this.url, this.title, this.color});
@@ -80,14 +80,6 @@ class _ProductListState extends State<ProductList> {
                   itemCount: 10,
                   itemBuilder: (BuildContext context, int index) {
                     Product product = snapshot.data[index];
-
-                    var finalPrice = "";
-                    var data = json.decode(product.price);
-                    var keys = data.keys.toList();
-                    for (var key in keys) {
-                      finalPrice += (key + ": " + data[key].toString() + " ");
-                    }
-
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -101,92 +93,101 @@ class _ProductListState extends State<ProductList> {
                         padding: EdgeInsets.all(10.0),
                         child: Container(
                           width: 250.0,
+                          height: 250.0,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
+                            borderRadius: BorderRadius.circular(10.0),
                             color: color,
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.grey,
-                                offset: Offset(1.0, 2.0),
-                                blurRadius: 5,
+                                offset: Offset(0.0, 1.0),
+                                blurRadius: 1,
                               ),
                             ],
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Stack(
                             children: <Widget>[
-                              Stack(
-                                children: <Widget>[
-                                  Container(
-                                    height: 200,
-                                    width: 250,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      child: FittedBox(
-                                        fit: BoxFit.fill,
-                                        child: Hero(
-                                          tag: product,
-                                          child: Image.network(
-                                            baseUrl + product.imageUrl,
-                                          ),
-                                        ),
-                                      ),
+                              Container(
+                                height: 270,
+                                width: 250,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Hero(
+                                    tag: product,
+                                    child: Image.network(
+                                      baseUrl + product.imageUrl,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  Positioned(
-                                    left: 10,
-                                    bottom: 10,
-                                    right: 10,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        color: Color(0xFFF0EAEA),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(10.0),
-                                        child: Text(
+                                ),
+                              ),
+                              Positioned(
+                                left: 0,
+                                bottom: 0,
+                                right: 0,
+                                child: Container(
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(10.0),
+                                      bottomLeft: Radius.circular(10.0),
+                                    ),
+                                    color: color,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 20.0, right: 20.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
                                           product.name,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
-                                            fontSize: 20,
+                                            fontSize: 24,
+                                            color: Colors.white,
+                                            letterSpacing: 1.5,
                                           ),
                                         ),
-                                      ),
+                                        SizedBox(height: 5.0),
+                                        Row(
+                                          children: <Widget>[
+                                            Text(
+                                              "3.5",
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: Color(0xFFF2F2F2),
+                                              ),
+                                            ),
+                                            Icon(Icons.star,
+                                                size: 16,
+                                                color: Colors.yellow),
+                                            Icon(Icons.star,
+                                                size: 16,
+                                                color: Colors.yellow),
+                                            Icon(Icons.star,
+                                                size: 16,
+                                                color: Colors.yellow),
+                                            Icon(Icons.star_half,
+                                                size: 16,
+                                                color: Colors.yellow),
+                                            Icon(Icons.star_border,
+                                                size: 16,
+                                                color: Colors.yellow),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    top: 10, left: 20, right: 20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text(
-                                      finalPrice.trim(),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    top: 10, left: 20, right: 20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text(product.category),
-                                    Text("Stock: " + product.stock),
-                                  ],
-                                ),
-                              )
                             ],
                           ),
                         ),

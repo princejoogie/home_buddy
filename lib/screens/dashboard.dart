@@ -47,7 +47,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         bucket: bucket,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        elevation: 10.0,
+        elevation: 30.0,
         selectedItemColor: Color(0xFF007BFF),
         unselectedItemColor: Color(0xFF6FBAF7),
         backgroundColor: Color(0xFFFFFFFF),

@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
       var pw = password.text.trim();
 
       final response = await http.post(
-        'http://192.168.1.6/home_buddy_crud/api/login.php',
+        'http://192.168.1.4/home_buddy_crud/api/login.php',
         body: {
           'uname': uname,
           'password': pw,

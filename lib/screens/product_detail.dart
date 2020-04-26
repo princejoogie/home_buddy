@@ -15,7 +15,7 @@ class ProductDetail extends StatefulWidget {
 
 class _ProductDetailState extends State<ProductDetail> {
   Product _product;
-  var baseUrl = "http://192.168.1.6/home_buddy_crud/images/";
+  var baseUrl = "http://192.168.1.4/home_buddy_crud/images/";
   var finalPrice = "";
 
   _ProductDetailState(Product product) {
@@ -34,13 +34,12 @@ class _ProductDetailState extends State<ProductDetail> {
       body: Stack(
         children: <Widget>[
           Container(
-            height: double.infinity,
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: ListView(
               children: <Widget>[
                 Container(
-                  height: 300,
+                  height: 400,
                   width: double.infinity,
                   child: Hero(
                     tag: _product,
@@ -63,7 +62,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           Text(
                             finalPrice.trim(),
                             style: TextStyle(
-                              fontSize: 24,
+                              fontSize: 30,
                               color: Color(0xFF002CB8),
                             ),
                           ),
@@ -120,6 +119,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     ),
                   ),
                 ),
+                SizedBox(height: 140),
               ],
             ),
           ),
@@ -146,44 +146,40 @@ class _ProductDetailState extends State<ProductDetail> {
             bottom: 70,
             child: Container(
               width: MediaQuery.of(context).size.width,
+              height: 60,
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Text("Quantity"),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          color: Color(0xFF007BFF),
-                          child: IconButton(
-                            icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () {},
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      alignment: Alignment.center,
+                      color: Color(0xFF007BFF),
+                      child: IconButton(
+                        icon: Icon(Icons.remove, color: Colors.white),
+                        onPressed: () {},
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        color: Color(0xFFF2F2F2),
+                        child: Text(
+                          "0",
+                          style: TextStyle(
+                            fontSize: 18,
                           ),
                         ),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 44,
-                            color: Color(0xFFF2F2F2),
-                            child: Text(
-                              "0",
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 8),
-                        Container(
-                          color: Color(0xFF007BFF),
-                          child: IconButton(
-                            icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () {},
-                          ),
-                        ),
-                      ],
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Container(
+                      color: Color(0xFF007BFF),
+                      child: IconButton(
+                        icon: Icon(Icons.add, color: Colors.white),
+                        onPressed: () {},
+                      ),
                     ),
                   ],
                 ),

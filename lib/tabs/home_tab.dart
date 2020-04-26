@@ -21,31 +21,36 @@ class _HomeTabState extends State<HomeTab> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                  left: 10,
-                  right: 10,
+                  left: 20,
+                  right: 20,
                   top: 20,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Image(
-                      image: AssetImage('assets/logoSmall.png'),
-                    ),
                     Container(
-                      height: 50,
-                      width: 300,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25.0),
-                        color: Color(0xFFE3D9D9),
+                      height: 50.0,
+                      child: Image(
+                        image: AssetImage('assets/logoSmall.png'),
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 20),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Type Keywords...",
-                            style: TextStyle(
-                              color: Color(0xFF7B7676),
+                    ),
+                    SizedBox(width: 20),
+                    Expanded(
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25.0),
+                          color: Color(0xFFE3D9D9),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Type Keywords...",
+                              style: TextStyle(
+                                color: Color(0xFF7B7676),
+                              ),
                             ),
                           ),
                         ),
@@ -58,23 +63,23 @@ class _HomeTabState extends State<HomeTab> {
           ),
           ProductList(
             url:
-                'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=Meat%20and%20Seafood',
-            title: 'Meat and Seafood',
-            color: Color(0xFFFFFFFF),
-          ),
-          SizedBox(height: 10),
-          ProductList(
-            url:
-                'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=fruits%20and%20vegetables',
+                'http://192.168.1.4/home_buddy_crud/api/get_category.php?category=fruits%20and%20vegetables',
             title: 'Fruits and Vegetables',
-            color: Color(0xFFFFFFFF),
+            color: Color(0xFF7AFF00).withOpacity(0.8),
           ),
           SizedBox(height: 10),
           ProductList(
             url:
-                'http://192.168.1.6/home_buddy_crud/api/get_category.php?category=Frozen',
+                'http://192.168.1.4/home_buddy_crud/api/get_category.php?category=Meat%20and%20Seafood',
+            title: 'Meat and Seafood',
+            color: Color(0xFF6FBAF7).withOpacity(0.8),
+          ),
+          SizedBox(height: 10),
+          ProductList(
+            url:
+                'http://192.168.1.4/home_buddy_crud/api/get_category.php?category=Frozen',
             title: 'Frozen',
-            color: Color(0xFFFFFFFF),
+            color: Color(0xFFFF8300).withOpacity(0.8),
           ),
           SizedBox(height: 10),
         ],
