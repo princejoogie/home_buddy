@@ -22,15 +22,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       HomeTab(
         key: PageStorageKey('HomeTab'),
       ),
-      AlertTab(
-        key: PageStorageKey('AlertTab'),
-      ),
-      CartTab(
-        key: PageStorageKey('CartTab'),
-      ),
-      ProfileTab(
-        key: PageStorageKey('ProfileTab'),
-      ),
+      AlertTab(),
+      CartTab(),
+      ProfileTab(),
     ];
   }
 

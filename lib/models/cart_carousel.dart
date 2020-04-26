@@ -1,0 +1,58 @@
+import 'package:home_buddy/models/cart_item_model.dart';
+
+List<CartItem> cart = [
+  CartItem(
+    id: 1,
+    name: 'Chicken Breast',
+    price: 180,
+    totalPrice: 540,
+    quantity: 3,
+    type: '1-Kilo',
+    imageUrl: 'meat_and_seafood/chicken_breast.jpg',
+  ),
+  CartItem(
+    id: 14,
+    name: 'Dory',
+    price: 75,
+    totalPrice: 75,
+    quantity: 1,
+    type: 'Half-Kilo',
+    imageUrl: 'meat_and_seafood/dory.jpg',
+  ),
+  CartItem(
+    id: 102,
+    name: 'Pedigree (Dog Food)',
+    price: 2290,
+    totalPrice: 2290,
+    quantity: 2,
+    type: 'Per-Pack',
+    imageUrl: 'pet_care_and_food/pedigree.jpg',
+  ),
+  CartItem(
+    id: 86,
+    name: 'Tocino',
+    price: 65,
+    totalPrice: 260,
+    quantity: 4,
+    type: 'Per-Pack',
+    imageUrl: 'frozen/tocino.jpg',
+  ),
+  CartItem(
+    id: 89,
+    name: 'Burger Patty',
+    price: 45,
+    totalPrice: 225,
+    quantity: 5,
+    type: 'Per-Pack',
+    imageUrl: 'frozen/burger_patty.jpg',
+  ),
+  CartItem(
+    id: 78,
+    name: 'Ponkan',
+    price: 25,
+    totalPrice: 375,
+    quantity: 15,
+    type: 'Per-Piece',
+    imageUrl: 'fruits_and_vegetables/ponkan.jpeg',
+  ),
+];

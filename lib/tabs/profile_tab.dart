@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ProfileTab extends StatefulWidget {
-  const ProfileTab({Key key}) : super(key: key);
-
   @override
   _ProfileTabState createState() => _ProfileTabState();
 }

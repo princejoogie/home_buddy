@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AlertTab extends StatefulWidget {
-  const AlertTab({Key key}) : super(key: key);
-
   @override
   _AlertTabState createState() => _AlertTabState();
 }
