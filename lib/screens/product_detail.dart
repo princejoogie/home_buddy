@@ -4,48 +4,47 @@ import 'package:flutter/material.dart';
 import 'package:home_buddy/models/product_model.dart';
 
 class ProductDetail extends StatefulWidget {
-  Product _product;
-  ProductDetail(Product product) {
-    _product = product;
-  }
+  Product product;
+  String email;
+  ProductDetail({this.product, this.email});
 
   @override
-  _ProductDetailState createState() => _ProductDetailState(_product);
+  _ProductDetailState createState() => _ProductDetailState(product, email);
 }
 
 class _ProductDetailState extends State<ProductDetail> {
-  Product _product;
+  Product product;
+  String email;
   var baseUrl = "http://192.168.1.4/home_buddy_crud/images/";
   var finalPrice = "";
 
-  _ProductDetailState(Product product) {
-    _product = product;
-    var data = json.decode(_product.price);
+  _ProductDetailState(this.product, this.email) {
+    var data = json.decode(product.price);
     var keys = data.keys.toList();
     for (var key in keys) {
       finalPrice += (key + ": ₱" + data[key].toString() + "\n");
     }
   }
 
-  Future<void> _addToCart(String email, context) async {
+  Future<void> _addToCart(context) async {
     final response = await http.post(
       'http://192.168.1.4/home_buddy_crud/api/add_to_cart.php',
       body: {
         'email': email,
-        'id': _product.id.toString(),
-        'name': _product.name,
-        'price': _product.price.toString(),
+        'id': product.id.toString(),
+        'name': product.name,
+        'price': product.price.toString(),
         'totalPrice': '1234',
         'quantity': '3',
         'type': 'Per-Pack',
-        'imageUrl': _product.imageUrl,
+        'imageUrl': product.imageUrl,
       },
     );
 
     print(response.body);
     if (response.body == 'success') {
       final snackBar =
-          SnackBar(content: Text('Added ' + _product.name + ' to Cart'));
+          SnackBar(content: Text('Added ' + product.name + ' to Cart'));
       Scaffold.of(context).showSnackBar(snackBar);
     } else {
       final snackBar = SnackBar(content: Text('Error adding to Cart'));
@@ -68,9 +67,9 @@ class _ProductDetailState extends State<ProductDetail> {
                   height: 400,
                   width: double.infinity,
                   child: Hero(
-                    tag: _product,
+                    tag: product,
                     child: Image.network(
-                      baseUrl + _product.imageUrl,
+                      baseUrl + product.imageUrl,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -94,7 +93,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           ),
                           SizedBox(height: 10),
                           Text(
-                            _product.name,
+                            product.name,
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
@@ -135,7 +134,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           ),
                           SizedBox(height: 10),
                           Text(
-                            _product.description,
+                            product.description,
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -223,8 +222,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 child: Builder(
                   builder: (context) => RaisedButton(
                     onPressed: () {
-                      _addToCart('princejoogie@gmail.com', context);
-                      Navigator.of(context).pop();
+                      _addToCart(context);
                     },
                     color: Color(0xFF007BFF),
                     child: Row(

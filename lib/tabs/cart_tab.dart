@@ -4,15 +4,21 @@ import 'package:home_buddy/models/cart_item_model.dart';
 import 'package:http/http.dart' as http;
 
 class CartTab extends StatefulWidget {
+  String email;
+  CartTab({this.email});
+
   @override
-  _CartTabState createState() => _CartTabState();
+  _CartTabState createState() => _CartTabState(email);
 }
 
 class _CartTabState extends State<CartTab> {
   var baseUrl = "http://192.168.1.4/home_buddy_crud/images/";
   var totalPrice = 0;
+  String email;
 
-  Future<void> _removeItem(String email, int index) async {
+  _CartTabState(this.email);
+
+  Future<void> _removeItem(int index) async {
     final response = await http.post(
       'http://192.168.1.4/home_buddy_crud/api/remove_from_cart.php',
       body: {'email': email, 'index': index.toString()},
@@ -23,28 +29,19 @@ class _CartTabState extends State<CartTab> {
     setState(() {});
   }
 
-  Future<List<CartItem>> _fetchCartItems(String email) async {
+  Future<List<CartItem>> _fetchCartItems() async {
     final response = await http.post(
       'http://192.168.1.4/home_buddy_crud/api/get_cart.php',
       body: {'email': email},
     );
 
     var data = json.decode(response.body);
-    // print(data);
 
     List<CartItem> items = [];
 
     for (var i in data) {
       CartItem product = CartItem.fromJson(i);
       items.add(product);
-      // print('id: ' + product.id.toString());
-      // print('name: ' + product.name);
-      // print('price: ' + product.price.toString());
-      // print('totalPrice: ' + product.totalPrice.toString());
-      // print('quantity: ' + product.quantity.toString());
-      // print('type: ' + product.type);
-      // print('imageUrl: ' + product.imageUrl);
-      // print('----------------------------------------------------------------');
     }
 
     return items;
@@ -195,7 +192,7 @@ class _CartTabState extends State<CartTab> {
           right: 0,
           left: 0,
           child: FutureBuilder(
-            future: _fetchCartItems('princejoogie@gmail.com'),
+            future: _fetchCartItems(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return Container(
@@ -274,8 +271,7 @@ class _CartTabState extends State<CartTab> {
                                   borderRadius: BorderRadius.circular(10),
                                   radius: 10,
                                   onTap: () {
-                                    _removeItem(
-                                        'princejoogie@gmail.com', index);
+                                    _removeItem(index);
                                   },
                                   child: Container(
                                     alignment: Alignment.center,

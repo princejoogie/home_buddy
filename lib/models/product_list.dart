@@ -5,24 +5,21 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ProductList extends StatefulWidget {
-  final String url, title;
+  final String url, title, email;
   final Color color;
 
-  ProductList({this.url, this.title, this.color});
+  ProductList({this.url, this.title, this.color, this.email});
 
   @override
-  _ProductListState createState() => _ProductListState(
-        url: url,
-        title: title,
-        color: color,
-      );
+  _ProductListState createState() =>
+      _ProductListState(url, title, color, email);
 }
 
 class _ProductListState extends State<ProductList> {
   var baseUrl = "http://192.168.1.4/home_buddy_crud/images/";
-  var url, title, color;
-
-  _ProductListState({this.url, this.title, this.color});
+  String url, title, email;
+  Color color;
+  _ProductListState(this.url, this.title, this.color, this.email);
 
   Future<List<Product>> _fetchProducts() async {
     final response = await http.get(url);
@@ -85,7 +82,10 @@ class _ProductListState extends State<ProductList> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ProductDetail(product),
+                            builder: (context) => ProductDetail(
+                              product: product,
+                              email: email,
+                            ),
                           ),
                         );
                       },
@@ -167,20 +167,15 @@ class _ProductListState extends State<ProductList> {
                                               ),
                                             ),
                                             Icon(Icons.star,
-                                                size: 16,
-                                                color: Colors.yellow),
+                                                size: 16, color: Colors.yellow),
                                             Icon(Icons.star,
-                                                size: 16,
-                                                color: Colors.yellow),
+                                                size: 16, color: Colors.yellow),
                                             Icon(Icons.star,
-                                                size: 16,
-                                                color: Colors.yellow),
+                                                size: 16, color: Colors.yellow),
                                             Icon(Icons.star_half,
-                                                size: 16,
-                                                color: Colors.yellow),
+                                                size: 16, color: Colors.yellow),
                                             Icon(Icons.star_border,
-                                                size: 16,
-                                                color: Colors.yellow),
+                                                size: 16, color: Colors.yellow),
                                           ],
                                         ),
                                       ],

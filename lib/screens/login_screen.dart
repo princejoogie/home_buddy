@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:home_buddy/screens/dashboard.dart';
 import 'package:http/http.dart' as http;
@@ -129,7 +131,8 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       if (response.statusCode == 200) {
-        if (response.body == 'success') {
+        var data = json.decode(response.body);
+        if (data[0] == 'success') {
           if (!mounted) return;
           setState(() {
             _loading = false;
@@ -137,11 +140,12 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => DashboardScreen(),
+              builder: (BuildContext context) =>
+                  DashboardScreen(email: data[1]['email']),
             ),
           );
         } else {
-          _showError("Login Failed", response.body);
+          _showError("Login Failed", data[0]);
         }
       } else {
         _showError("Network Error", "Error Connecting");

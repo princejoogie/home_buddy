@@ -5,26 +5,33 @@ import 'package:home_buddy/tabs/profile_tab.dart';
 import 'package:home_buddy/tabs/alert_tab.dart';
 
 class DashboardScreen extends StatefulWidget {
-  DashboardScreen({Key key}) : super(key: key);
+  String email;
+
+  DashboardScreen({this.email});
 
   @override
-  _DashboardScreenState createState() => _DashboardScreenState();
+  _DashboardScreenState createState() => _DashboardScreenState(email);
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int tabIndex = 0;
+  String email;
+
+  _DashboardScreenState(this.email);
 
   List<Widget> listScreens;
   @override
   void initState() {
     super.initState();
+    print("EMAIL: " + email);
     listScreens = [
       HomeTab(
         key: PageStorageKey('HomeTab'),
+        email: email,
       ),
-      AlertTab(),
-      CartTab(),
-      ProfileTab(),
+      AlertTab(email: email),
+      CartTab(email: email),
+      ProfileTab(email: email),
     ];
   }
 
