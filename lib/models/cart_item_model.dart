@@ -25,7 +25,7 @@ class CartItem {
       totalPrice: json['totalPrice'],
       quantity: json['quantity'],
       type: json['type'],
-      imageUrl: json['image_url'],
+      imageUrl: json['imageUrl'],
     );
   }
 
@@ -36,6 +36,6 @@ class CartItem {
         'totalPrice': totalPrice,
         'quantity': quantity,
         'type': type,
-        'image_url': imageUrl,
+        'imageUrl': imageUrl,
       };
 }

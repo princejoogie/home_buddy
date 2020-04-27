@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:home_buddy/models/product_model.dart';
 
@@ -24,6 +24,32 @@ class _ProductDetailState extends State<ProductDetail> {
     var keys = data.keys.toList();
     for (var key in keys) {
       finalPrice += (key + ": ₱" + data[key].toString() + "\n");
+    }
+  }
+
+  Future<void> _addToCart(String email, context) async {
+    final response = await http.post(
+      'http://192.168.1.4/home_buddy_crud/api/add_to_cart.php',
+      body: {
+        'email': email,
+        'id': _product.id.toString(),
+        'name': _product.name,
+        'price': _product.price.toString(),
+        'totalPrice': '1234',
+        'quantity': '3',
+        'type': 'Per-Pack',
+        'imageUrl': _product.imageUrl,
+      },
+    );
+
+    print(response.body);
+    if (response.body == 'success') {
+      final snackBar =
+          SnackBar(content: Text('Added ' + _product.name + ' to Cart'));
+      Scaffold.of(context).showSnackBar(snackBar);
+    } else {
+      final snackBar = SnackBar(content: Text('Error adding to Cart'));
+      Scaffold.of(context).showSnackBar(snackBar);
     }
   }
 
@@ -194,22 +220,27 @@ class _ProductDetailState extends State<ProductDetail> {
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: RaisedButton(
-                  onPressed: () {},
-                  color: Color(0xFF007BFF),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.add_shopping_cart, color: Color(0xFF6FBAF7)),
-                      SizedBox(width: 10),
-                      Text(
-                        'Add to Cart',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
+                child: Builder(
+                  builder: (context) => RaisedButton(
+                    onPressed: () {
+                      _addToCart('princejoogie@gmail.com', context);
+                      Navigator.of(context).pop();
+                    },
+                    color: Color(0xFF007BFF),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.add_shopping_cart, color: Color(0xFF6FBAF7)),
+                        SizedBox(width: 10),
+                        Text(
+                          'Add to Cart',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
