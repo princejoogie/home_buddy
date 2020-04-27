@@ -136,52 +136,13 @@ class _CartTabState extends State<CartTab> {
             ),
             child: Padding(
               padding: EdgeInsets.only(left: 20, right: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Material(
-                    borderRadius: BorderRadius.circular(20),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(20),
-                      radius: 25,
-                      onTap: () {},
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        child: Icon(
-                          Icons.refresh,
-                          color: Colors.black,
-                          size: 24,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    "CART",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 5.0,
-                    ),
-                  ),
-                  Material(
-                    borderRadius: BorderRadius.circular(20),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(20),
-                      radius: 25,
-                      onTap: () {},
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        child: Icon(
-                          Icons.delete,
-                          color: Colors.black,
-                          size: 24,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+              child: Text(
+                "YOUR CART",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 5.0,
+                ),
               ),
             ),
           ),

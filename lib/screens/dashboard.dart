@@ -5,19 +5,21 @@ import 'package:home_buddy/tabs/profile_tab.dart';
 import 'package:home_buddy/tabs/alert_tab.dart';
 
 class DashboardScreen extends StatefulWidget {
-  String email;
+  String email, username, firstName, lastName;
 
-  DashboardScreen({this.email});
+  DashboardScreen({this.email, this.username, this.firstName, this.lastName});
 
   @override
-  _DashboardScreenState createState() => _DashboardScreenState(email);
+  _DashboardScreenState createState() =>
+      _DashboardScreenState(email, username, firstName, lastName);
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int tabIndex = 0;
-  String email;
+  String email = "N/A", username = "N/A", firstName = "N/A", lastName = "N/A";
 
-  _DashboardScreenState(this.email);
+  _DashboardScreenState(
+      this.email, this.username, this.firstName, this.lastName);
 
   List<Widget> listScreens;
   @override
@@ -31,7 +33,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
       AlertTab(email: email),
       CartTab(email: email),
-      ProfileTab(email: email),
+      ProfileTab(
+        email: email,
+        username: username,
+        firstName: firstName,
+        lastName: lastName,
+      ),
     ];
   }
 

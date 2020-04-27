@@ -140,8 +140,12 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  DashboardScreen(email: data[1]['email']),
+              builder: (BuildContext context) => DashboardScreen(
+                email: data[1]['email'],
+                username: data[1]['username'],
+                firstName: data[1]['first_name'],
+                lastName: data[1]['last_name'],
+              ),
             ),
           );
         } else {
