@@ -116,13 +116,16 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<void> _putUserData(email, username, firstName, lastName) async {
+  Future<void> _putUserData(
+      email, username, firstName, lastName, profileImage, coverImage) async {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setString('email', email);
     await prefs.setString('username', username);
     await prefs.setString('firstName', firstName);
     await prefs.setString('lastName', lastName);
+    await prefs.setString('profileImage', profileImage);
+    await prefs.setString('coverImage', coverImage);
   }
 
   Future<void> _login() async {
@@ -153,6 +156,8 @@ class _LoginScreenState extends State<LoginScreen> {
             data[1]['username'],
             data[1]['first_name'],
             data[1]['last_name'],
+            data[1]['profile_image'],
+            data[1]['cover_image'],
           );
 
           Navigator.push(

@@ -13,7 +13,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String email, username, firstName, lastName;
+  String email, username, firstName, lastName, profileImage, coverImage;
   bool saved = false;
 
   void initState() {
@@ -29,6 +29,8 @@ class _MyAppState extends State<MyApp> {
       username = prefs.getString('username');
       firstName = prefs.getString('firstName');
       lastName = prefs.getString('lastName');
+      profileImage = prefs.getString('profileImage');
+      coverImage = prefs.getString('coverImage');
     });
 
     if (username != null) {
@@ -59,6 +61,8 @@ class _MyAppState extends State<MyApp> {
               username: username,
               firstName: firstName,
               lastName: lastName,
+              profileImage: profileImage,
+              coverImage: coverImage,
             ),
     );
   }

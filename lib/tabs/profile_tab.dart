@@ -4,24 +4,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileTab extends StatefulWidget {
   final String email, username, firstName, lastName, profileImage, coverImage;
-  ProfileTab({
-    this.email,
-    this.username,
-    this.firstName,
-    this.lastName,
-    this.profileImage,
-    this.coverImage,
-  });
+  ProfileTab(
+      {this.email,
+      this.username,
+      this.firstName,
+      this.lastName,
+      this.profileImage,
+      this.coverImage});
 
   @override
   _ProfileTabState createState() => _ProfileTabState(
-        email,
-        username,
-        firstName,
-        lastName,
-        profileImage,
-        coverImage,
-      );
+      email, username, firstName, lastName, profileImage, coverImage);
 }
 
 class _ProfileTabState extends State<ProfileTab> {
@@ -44,6 +37,8 @@ class _ProfileTabState extends State<ProfileTab> {
     await prefs.setString('username', null);
     await prefs.setString('firstName', null);
     await prefs.setString('lastName', null);
+    await prefs.setString('profileImage', null);
+    await prefs.setString('coverImage', null);
   }
 
   @override
