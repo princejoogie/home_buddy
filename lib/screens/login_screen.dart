@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:home_buddy/screens/dashboard.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -115,6 +116,15 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  Future<void> _putUserData(email, username, firstName, lastName) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('email', email);
+    await prefs.setString('username', username);
+    await prefs.setString('firstName', firstName);
+    await prefs.setString('lastName', lastName);
+  }
+
   Future<void> _login() async {
     if (username.text.length <= 0 || password.text.length <= 0) {
       _showError("Warning", "One or more fields are empty.");
@@ -137,6 +147,14 @@ class _LoginScreenState extends State<LoginScreen> {
           setState(() {
             _loading = false;
           });
+
+          await _putUserData(
+            data[1]['email'],
+            data[1]['username'],
+            data[1]['first_name'],
+            data[1]['last_name'],
+          );
+
           Navigator.push(
             context,
             MaterialPageRoute(

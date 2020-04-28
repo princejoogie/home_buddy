@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:home_buddy/screens/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileTab extends StatefulWidget {
   final String email, username, firstName, lastName;
@@ -13,6 +15,15 @@ class _ProfileTabState extends State<ProfileTab> {
   String email, username, firstName, lastName;
 
   _ProfileTabState(this.email, this.username, this.firstName, this.lastName);
+
+  Future<void> _putUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('email', null);
+    await prefs.setString('username', null);
+    await prefs.setString('firstName', null);
+    await prefs.setString('lastName', null);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +81,15 @@ class _ProfileTabState extends State<ProfileTab> {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(20),
                       radius: 25,
-                      onTap: () {},
+                      onTap: () async {
+                        await _putUserData();
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => LoginScreen(),
+                          ),
+                        );
+                      },
                       child: Container(
                         width: 40,
                         height: 40,
