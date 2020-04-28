@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AlertTab extends StatefulWidget {
-  String email;
+  final String email;
   AlertTab({this.email});
   @override
   _AlertTabState createState() => _AlertTabState(email);

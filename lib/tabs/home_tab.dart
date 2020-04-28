@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:home_buddy/models/product_list.dart';
 
 class HomeTab extends StatefulWidget {
-  String email;
+  final String email;
   HomeTab({Key key, this.email}) : super(key: key);
 
   @override

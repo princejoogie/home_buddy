@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'package:home_buddy/components/long_hold.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:home_buddy/models/product_model.dart';
 
 class ProductDetail extends StatefulWidget {
-  Product product;
-  String email;
+  final Product product;
+  final String email;
   ProductDetail({this.product, this.email});
 
   @override
@@ -17,12 +18,16 @@ class _ProductDetailState extends State<ProductDetail> {
   String email;
   var baseUrl = "http://192.168.1.4/home_buddy_crud/images/";
   var finalPrice = "";
+  var price = [], key = [];
+  int quantity = 0, pIndex = 0;
 
   _ProductDetailState(this.product, this.email) {
     var data = json.decode(product.price);
     var keys = data.keys.toList();
     for (var key in keys) {
       finalPrice += (key + ": ₱" + data[key].toString() + "\n");
+      this.price.add(data[key]);
+      this.key.add(key);
     }
   }
 
@@ -33,15 +38,14 @@ class _ProductDetailState extends State<ProductDetail> {
         'email': email,
         'id': product.id.toString(),
         'name': product.name,
-        'price': product.price.toString(),
-        'totalPrice': '1234',
-        'quantity': '3',
-        'type': 'Per-Pack',
+        'price': product.price,
+        'totalPrice': (price[pIndex] * quantity).toString(),
+        'quantity': quantity.toString(),
+        'type': key[pIndex],
         'imageUrl': product.imageUrl,
       },
     );
 
-    print(response.body);
     if (response.body == 'success') {
       final snackBar =
           SnackBar(content: Text('Added ' + product.name + ' to Cart'));
@@ -87,7 +91,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           Text(
                             finalPrice.trim(),
                             style: TextStyle(
-                              fontSize: 30,
+                              fontSize: 26,
                               color: Color(0xFF002CB8),
                             ),
                           ),
@@ -139,6 +143,20 @@ class _ProductDetailState extends State<ProductDetail> {
                               fontSize: 16,
                             ),
                           ),
+                          Text(
+                            "Stock Available:",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color(0xFF002CB8),
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            product.stock,
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -174,15 +192,40 @@ class _ProductDetailState extends State<ProductDetail> {
               height: 60,
               color: Colors.white,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   children: <Widget>[
-                    Container(
-                      alignment: Alignment.center,
-                      color: Color(0xFF007BFF),
-                      child: IconButton(
-                        icon: Icon(Icons.remove, color: Colors.white),
-                        onPressed: () {},
+                    HoldDetector(
+                      onHold: () {
+                        setState(() {
+                          if (quantity < 1)
+                            quantity = 0;
+                          else
+                            quantity -= 1;
+                        });
+                      },
+                      child: Material(
+                        borderRadius: BorderRadius.circular(20),
+                        child: InkWell(
+                          splashColor: Color(0xFFF2F2F2),
+                          borderRadius: BorderRadius.circular(20),
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            child: Icon(
+                              Icons.remove,
+                              color: Colors.black,
+                            ),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              if (quantity < 1)
+                                quantity = 0;
+                              else
+                                quantity -= 1;
+                            });
+                          },
+                        ),
                       ),
                     ),
                     SizedBox(width: 8),
@@ -191,7 +234,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         alignment: Alignment.center,
                         color: Color(0xFFF2F2F2),
                         child: Text(
-                          "0",
+                          quantity.toString(),
                           style: TextStyle(
                             fontSize: 18,
                           ),
@@ -199,11 +242,35 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                     ),
                     SizedBox(width: 8),
-                    Container(
-                      color: Color(0xFF007BFF),
-                      child: IconButton(
-                        icon: Icon(Icons.add, color: Colors.white),
-                        onPressed: () {},
+                    HoldDetector(
+                      onHold: () {
+                        setState(() {
+                          quantity = quantity >= int.parse(product.stock)
+                              ? int.parse(product.stock)
+                              : quantity += 1;
+                        });
+                      },
+                      child: Material(
+                        borderRadius: BorderRadius.circular(20),
+                        child: InkWell(
+                          splashColor: Color(0xFFF2F2F2),
+                          borderRadius: BorderRadius.circular(20),
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.black,
+                            ),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              quantity = quantity >= int.parse(product.stock)
+                                  ? int.parse(product.stock)
+                                  : quantity += 1;
+                            });
+                          },
+                        ),
                       ),
                     ),
                   ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProfileTab extends StatefulWidget {
-  String email, username, firstName, lastName;
+  final String email, username, firstName, lastName;
   ProfileTab({this.email, this.username, this.firstName, this.lastName});
 
   @override

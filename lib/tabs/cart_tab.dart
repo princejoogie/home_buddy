@@ -4,7 +4,7 @@ import 'package:home_buddy/models/cart_item_model.dart';
 import 'package:http/http.dart' as http;
 
 class CartTab extends StatefulWidget {
-  String email;
+  final String email;
   CartTab({this.email});
 
   @override
@@ -39,9 +39,18 @@ class _CartTabState extends State<CartTab> {
 
     List<CartItem> items = [];
 
+    if (!mounted) return null;
+    setState(() {
+      totalPrice = 0;
+    });
     for (var i in data) {
       CartItem product = CartItem.fromJson(i);
       items.add(product);
+
+      if (!mounted) return null;
+      setState(() {
+        totalPrice += product.totalPrice;
+      });
     }
 
     return items;
@@ -157,12 +166,9 @@ class _CartTabState extends State<CartTab> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return Container(
-                  child: Center(child: Text("Loading...")),
+                  child: Center(child: CircularProgressIndicator()),
                 );
               } else {
-                // return Container(
-                //   child: Center(child: Text('Loaded.')),
-                // );
                 return ListView.builder(
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index) {

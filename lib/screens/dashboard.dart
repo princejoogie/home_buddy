@@ -5,7 +5,7 @@ import 'package:home_buddy/tabs/profile_tab.dart';
 import 'package:home_buddy/tabs/alert_tab.dart';
 
 class DashboardScreen extends StatefulWidget {
-  String email, username, firstName, lastName;
+  final String email, username, firstName, lastName;
 
   DashboardScreen({this.email, this.username, this.firstName, this.lastName});
 
