@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String email, username, firstName, lastName;
-  int val = 0;
+  bool saved = false;
 
   void initState() {
     super.initState();
@@ -33,11 +33,11 @@ class _MyAppState extends State<MyApp> {
 
     if (username != null) {
       setState(() {
-        val = 1;
+        saved = true;
       });
     } else {
       setState(() {
-        val = 0;
+        saved = false;
       });
     }
   }
@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
         accentColor: Color(0xFFD8ECF1),
         scaffoldBackgroundColor: Color(0xFFF3F5F7),
       ),
-      home: val == 0
+      home: !saved
           ? LoginScreen()
           : DashboardScreen(
               email: email,

@@ -5,21 +5,45 @@ import 'package:home_buddy/tabs/profile_tab.dart';
 import 'package:home_buddy/tabs/alert_tab.dart';
 
 class DashboardScreen extends StatefulWidget {
-  final String email, username, firstName, lastName;
+  final String email, username, firstName, lastName, profileImage, coverImage;
 
-  DashboardScreen({this.email, this.username, this.firstName, this.lastName});
+  DashboardScreen({
+    this.email,
+    this.username,
+    this.firstName,
+    this.lastName,
+    this.profileImage,
+    this.coverImage,
+  });
 
   @override
-  _DashboardScreenState createState() =>
-      _DashboardScreenState(email, username, firstName, lastName);
+  _DashboardScreenState createState() => _DashboardScreenState(
+        email,
+        username,
+        firstName,
+        lastName,
+        profileImage,
+        coverImage,
+      );
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int tabIndex = 0;
-  String email = "N/A", username = "N/A", firstName = "N/A", lastName = "N/A";
+  String email = "N/A",
+      username = "N/A",
+      firstName = "N/A",
+      lastName = "N/A",
+      profileImage,
+      coverImage;
 
   _DashboardScreenState(
-      this.email, this.username, this.firstName, this.lastName);
+    this.email,
+    this.username,
+    this.firstName,
+    this.lastName,
+    this.profileImage,
+    this.coverImage,
+  );
 
   List<Widget> listScreens;
   @override
@@ -38,6 +62,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         username: username,
         firstName: firstName,
         lastName: lastName,
+        profileImage: profileImage,
+        coverImage: coverImage,
       ),
     ];
   }

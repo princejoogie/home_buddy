@@ -163,6 +163,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 username: data[1]['username'],
                 firstName: data[1]['first_name'],
                 lastName: data[1]['last_name'],
+                profileImage: data[1]['profile_image'],
+                coverImage: data[1]['cover_image'],
               ),
             ),
           );

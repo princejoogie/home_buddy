@@ -3,18 +3,39 @@ import 'package:home_buddy/screens/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileTab extends StatefulWidget {
-  final String email, username, firstName, lastName;
-  ProfileTab({this.email, this.username, this.firstName, this.lastName});
+  final String email, username, firstName, lastName, profileImage, coverImage;
+  ProfileTab({
+    this.email,
+    this.username,
+    this.firstName,
+    this.lastName,
+    this.profileImage,
+    this.coverImage,
+  });
 
   @override
-  _ProfileTabState createState() =>
-      _ProfileTabState(email, username, firstName, lastName);
+  _ProfileTabState createState() => _ProfileTabState(
+        email,
+        username,
+        firstName,
+        lastName,
+        profileImage,
+        coverImage,
+      );
 }
 
 class _ProfileTabState extends State<ProfileTab> {
-  String email, username, firstName, lastName;
+  String baseUrl = "http://192.168.1.4/home_buddy_crud/images/";
+  String email, username, firstName, lastName, profileImage, coverImage;
 
-  _ProfileTabState(this.email, this.username, this.firstName, this.lastName);
+  _ProfileTabState(
+    this.email,
+    this.username,
+    this.firstName,
+    this.lastName,
+    this.profileImage,
+    this.coverImage,
+  );
 
   Future<void> _putUserData() async {
     final prefs = await SharedPreferences.getInstance();
@@ -60,7 +81,7 @@ class _ProfileTabState extends State<ProfileTab> {
                         width: 40,
                         height: 40,
                         child: Icon(
-                          Icons.mode_edit,
+                          Icons.settings,
                           color: Colors.black,
                           size: 24,
                         ),
@@ -126,6 +147,8 @@ class _ProfileTabState extends State<ProfileTab> {
                       child: Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Container(
+                          alignment: Alignment.topCenter,
+                          padding: EdgeInsets.only(top: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(20.0),
@@ -133,6 +156,26 @@ class _ProfileTabState extends State<ProfileTab> {
                             ),
                             color: Color(0xFF6FBAF7),
                           ),
+                          child: coverImage == 'cover_image.png'
+                              ? RaisedButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    "Click to upload Cover Photo",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                )
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(20.0),
+                                    topLeft: Radius.circular(20.0),
+                                  ),
+                                  child: Image(
+                                    image: NetworkImage(baseUrl + profileImage),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                         ),
                       ),
                     ),
@@ -142,6 +185,7 @@ class _ProfileTabState extends State<ProfileTab> {
                         height: 175,
                         width: 175,
                         decoration: BoxDecoration(
+                          color: Colors.grey,
                           borderRadius: BorderRadius.circular(175 / 2),
                           border: Border.all(
                             color: Color(0xFFF2F2F2),
@@ -151,9 +195,44 @@ class _ProfileTabState extends State<ProfileTab> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(175 / 2),
                           child: Image(
-                            image: NetworkImage(
-                                'http://192.168.1.4/home_buddy_crud/images/fruits_and_vegetables/cucumber.jpg'),
+                            image: NetworkImage(baseUrl + profileImage),
                             fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: (MediaQuery.of(context).size.width / 2 - 20) - 50,
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF007BFF),
+                          borderRadius: BorderRadius.circular(175 / 2),
+                          border: Border.all(
+                            color: Color(0xFFF2F2F2),
+                            width: 3,
+                          ),
+                        ),
+                        child: Material(
+                          borderRadius: BorderRadius.circular(20),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(20),
+                            radius: 25,
+                            onTap: () async {},
+                            child: Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Icon(
+                                Icons.mode_edit,
+                                color: Color(0xFF007BFF),
+                                size: 24,
+                              ),
+                            ),
                           ),
                         ),
                       ),
