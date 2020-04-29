@@ -58,7 +58,11 @@ class _ProductListState extends State<ProductList> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) => SeeAllScreen(title: title),
+                      builder: (BuildContext context) => SeeAllScreen(
+                        title: title,
+                        color: color,
+                        email: email,
+                      ),
                     ),
                   );
                 },

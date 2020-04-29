@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:home_buddy/host_details.dart';
 import 'package:home_buddy/screens/login_screen.dart';
@@ -98,11 +99,38 @@ class _ProfileTabState extends State<ProfileTab> {
                       borderRadius: BorderRadius.circular(20),
                       radius: 25,
                       onTap: () async {
-                        await _putUserData();
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => LoginScreen(),
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          child: new CupertinoAlertDialog(
+                            title: new Column(
+                              children: <Widget>[
+                                Text("Alert"),
+                                SizedBox(height: 10),
+                              ],
+                            ),
+                            content: Text("Are you Sure you want to Log Out?"),
+                            actions: <Widget>[
+                              FlatButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: new Text("CANCEL"),
+                              ),
+                              FlatButton(
+                                onPressed: () async {
+                                  await _putUserData();
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          LoginScreen(),
+                                    ),
+                                  );
+                                },
+                                child: new Text("OK"),
+                              )
+                            ],
                           ),
                         );
                       },

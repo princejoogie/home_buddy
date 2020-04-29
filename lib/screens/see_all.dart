@@ -1,21 +1,41 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:home_buddy/host_details.dart';
 import 'package:home_buddy/screens/product_detail.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:home_buddy/models/product_model.dart';
 
 class SeeAllScreen extends StatefulWidget {
-  final String title;
+  final String title, email;
   final Color color;
-  SeeAllScreen({this.title, this.color});
+
+  SeeAllScreen({this.title, this.color, this.email});
   @override
   _SeeAllScreenState createState() =>
-      _SeeAllScreenState(this.title, this.color);
+      _SeeAllScreenState(this.title, this.color, this.email);
 }
 
 class _SeeAllScreenState extends State<SeeAllScreen> {
-  String title;
+  String title, email;
   Color color;
 
-  _SeeAllScreenState(this.title, this.color);
+  _SeeAllScreenState(this.title, this.color, this.email);
+
+  Future<List<Product>> _fetchProducts() async {
+    final response = await http.get(getByCategoryAPI + this.title);
+
+    var data = json.decode(response.body);
+
+    List<Product> products = [];
+
+    for (var p in data) {
+      Product product = Product.fromJson(p);
+      products.add(product);
+    }
+
+    return products;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,47 +99,131 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
             ),
             Positioned(
               top: 50,
-              bottom: 0,
+              bottom: 10,
               right: 0,
               left: 0,
-              child: GridView.count(
-                primary: false,
-                padding: const EdgeInsets.all(20),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 2,
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: const Text('He\'d have you all unravel at the'),
-                    color: Colors.teal[100],
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: const Text('Heed not the rabble'),
-                    color: Colors.teal[200],
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: const Text('Sound of screams but the'),
-                    color: Colors.teal[300],
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: const Text('Who scream'),
-                    color: Colors.teal[400],
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: const Text('Revolution is coming...'),
-                    color: Colors.teal[500],
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: const Text('Revolution, they...'),
-                    color: Colors.teal[600],
-                  ),
-                ],
+              child: FutureBuilder(
+                future: _fetchProducts(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.data == null) {
+                    return Container(child: Center(child: Text("Loading...")));
+                  } else {
+                    return GridView.builder(
+                      itemCount: snapshot.data.length,
+                      gridDelegate:
+                          new SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                      ),
+                      itemBuilder: (BuildContext context, int index) {
+                        Product product = snapshot.data[index];
+                        return GestureDetector(
+                          child: Padding(
+                            padding: index % 2 == 0
+                                ? EdgeInsets.fromLTRB(10, 10, 5, 0)
+                                : EdgeInsets.fromLTRB(5, 10, 10, 0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    offset: Offset(0.0, 1.0),
+                                  ),
+                                ],
+                              ),
+                              child: Stack(
+                                children: <Widget>[
+                                  Container(
+                                    height: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      child: Hero(
+                                        tag: product,
+                                        child: Image.network(
+                                          baseUrl + product.imageUrl,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 0,
+                                    left: 0,
+                                    right: 0,
+                                    top: (MediaQuery.of(context).size.width /
+                                                2) /
+                                            2 +
+                                        20,
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      color: color,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            product.name,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Text(
+                                                "3.5",
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Color(0xFFF2F2F2),
+                                                ),
+                                              ),
+                                              Icon(Icons.star,
+                                                  size: 16,
+                                                  color: Colors.yellow),
+                                              Icon(Icons.star,
+                                                  size: 16,
+                                                  color: Colors.yellow),
+                                              Icon(Icons.star,
+                                                  size: 16,
+                                                  color: Colors.yellow),
+                                              Icon(Icons.star_half,
+                                                  size: 16,
+                                                  color: Colors.yellow),
+                                              Icon(Icons.star_border,
+                                                  size: 16,
+                                                  color: Colors.yellow),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductDetail(
+                                  product: product,
+                                  email: email,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    );
+                  }
+                },
               ),
             ),
           ],

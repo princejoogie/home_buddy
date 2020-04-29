@@ -11,3 +11,5 @@ String addToCartAPI = 'http://192.168.1.4/home_buddy_crud/api/add_to_cart.php';
 String removeFromCartAPI =
     'http://192.168.1.4/home_buddy_crud/api/remove_from_cart.php';
 String getCartAPI = 'http://192.168.1.4/home_buddy_crud/api/get_cart.php';
+String getByCategoryAPI =
+    'http://192.168.1.4/home_buddy_crud/api/get_category.php?category=';
