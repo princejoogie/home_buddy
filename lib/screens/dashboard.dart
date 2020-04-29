@@ -18,13 +18,7 @@ class DashboardScreen extends StatefulWidget {
 
   @override
   _DashboardScreenState createState() => _DashboardScreenState(
-        email,
-        username,
-        firstName,
-        lastName,
-        profileImage,
-        coverImage,
-      );
+      email, username, firstName, lastName, profileImage, coverImage);
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
@@ -36,14 +30,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
       profileImage,
       coverImage;
 
-  _DashboardScreenState(
-    this.email,
-    this.username,
-    this.firstName,
-    this.lastName,
-    this.profileImage,
-    this.coverImage,
-  );
+  _DashboardScreenState(this.email, this.username, this.firstName,
+      this.lastName, this.profileImage, this.coverImage);
 
   List<Widget> listScreens;
   @override

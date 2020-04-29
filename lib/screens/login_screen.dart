@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:home_buddy/host_details.dart';
 import 'package:home_buddy/screens/dashboard.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -136,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
       var pw = password.text.trim();
 
       final response = await http.post(
-        'http://192.168.1.4/home_buddy_crud/api/login.php',
+        loginAPI,
         body: {
           'uname': uname,
           'password': pw,

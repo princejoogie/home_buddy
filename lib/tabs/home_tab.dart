@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_buddy/host_details.dart';
 import 'package:home_buddy/models/product_list.dart';
 
 class HomeTab extends StatefulWidget {
@@ -66,24 +67,21 @@ class _HomeTabState extends State<HomeTab> {
             ],
           ),
           ProductList(
-            url:
-                'http://192.168.1.4/home_buddy_crud/api/get_category.php?category=fruits%20and%20vegetables',
+            url: fruitsAndVegetablesAPI,
             title: 'Fruits and Vegetables',
             color: Color(0xFF7AFF00).withOpacity(0.8),
             email: email,
           ),
           SizedBox(height: 10),
           ProductList(
-            url:
-                'http://192.168.1.4/home_buddy_crud/api/get_category.php?category=Meat%20and%20Seafood',
+            url: meatAndSeafoodAPI,
             title: 'Meat and Seafood',
             color: Color(0xFF6FBAF7).withOpacity(0.8),
             email: email,
           ),
           SizedBox(height: 10),
           ProductList(
-            url:
-                'http://192.168.1.4/home_buddy_crud/api/get_category.php?category=Frozen',
+            url: frozedAPI,
             title: 'Frozen',
             color: Color(0xFFFF8300).withOpacity(0.8),
             email: email,

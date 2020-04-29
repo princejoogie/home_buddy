@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:home_buddy/host_details.dart';
 import 'package:home_buddy/models/cart_item_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,7 +13,6 @@ class CartTab extends StatefulWidget {
 }
 
 class _CartTabState extends State<CartTab> {
-  var baseUrl = "http://192.168.1.4/home_buddy_crud/images/";
   var totalPrice = 0;
   String email;
 
@@ -20,7 +20,7 @@ class _CartTabState extends State<CartTab> {
 
   Future<void> _removeItem(int index) async {
     final response = await http.post(
-      'http://192.168.1.4/home_buddy_crud/api/remove_from_cart.php',
+      removeFromCartAPI,
       body: {'email': email, 'index': index.toString()},
     );
 
@@ -31,7 +31,7 @@ class _CartTabState extends State<CartTab> {
 
   Future<List<CartItem>> _fetchCartItems() async {
     final response = await http.post(
-      'http://192.168.1.4/home_buddy_crud/api/get_cart.php',
+      getCartAPI,
       body: {'email': email},
     );
 

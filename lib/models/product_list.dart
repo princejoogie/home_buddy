@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_buddy/host_details.dart';
 import 'package:home_buddy/models/product_model.dart';
 import 'package:home_buddy/screens/product_detail.dart';
 import 'package:http/http.dart' as http;
@@ -16,7 +17,6 @@ class ProductList extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductList> {
-  var baseUrl = "http://192.168.1.4/home_buddy_crud/images/";
   String url, title, email;
   Color color;
   _ProductListState(this.url, this.title, this.color, this.email);

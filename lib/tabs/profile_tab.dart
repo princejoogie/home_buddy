@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_buddy/host_details.dart';
 import 'package:home_buddy/screens/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,7 +19,6 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
-  String baseUrl = "http://192.168.1.4/home_buddy_crud/images/";
   String email, username, firstName, lastName, profileImage, coverImage;
 
   _ProfileTabState(
@@ -142,8 +142,6 @@ class _ProfileTabState extends State<ProfileTab> {
                       child: Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Container(
-                          alignment: Alignment.topCenter,
-                          padding: EdgeInsets.only(top: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(20.0),
@@ -152,23 +150,15 @@ class _ProfileTabState extends State<ProfileTab> {
                             color: Color(0xFF6FBAF7),
                           ),
                           child: coverImage == 'cover_image.png'
-                              ? RaisedButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    "Click to upload Cover Photo",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                )
+                              ? RaisedButton(onPressed: () {})
                               : ClipRRect(
                                   borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(20.0),
                                     topLeft: Radius.circular(20.0),
                                   ),
                                   child: Image(
-                                    image: NetworkImage(baseUrl + profileImage),
-                                    fit: BoxFit.cover,
+                                    image: NetworkImage(baseUrl + coverImage),
+                                    fit: BoxFit.fitWidth,
                                   ),
                                 ),
                         ),
@@ -223,7 +213,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Icon(
-                                Icons.mode_edit,
+                                Icons.camera_alt,
                                 color: Color(0xFF007BFF),
                                 size: 24,
                               ),
@@ -249,7 +239,6 @@ class _ProfileTabState extends State<ProfileTab> {
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          letterSpacing: 2,
                         ),
                       ),
                     ),

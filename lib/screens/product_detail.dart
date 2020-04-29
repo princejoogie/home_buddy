@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:home_buddy/components/long_hold.dart';
+import 'package:home_buddy/host_details.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:home_buddy/models/product_model.dart';
@@ -16,10 +17,9 @@ class ProductDetail extends StatefulWidget {
 class _ProductDetailState extends State<ProductDetail> {
   Product product;
   String email;
-  var baseUrl = "http://192.168.1.4/home_buddy_crud/images/";
   var finalPrice = "";
   var price = [], key = [];
-  int quantity = 0, pIndex = 0;
+  int quantity = 0, pIndex = 0 ;
 
   _ProductDetailState(this.product, this.email) {
     var data = json.decode(product.price);
@@ -33,12 +33,12 @@ class _ProductDetailState extends State<ProductDetail> {
 
   Future<void> _addToCart(context) async {
     final response = await http.post(
-      'http://192.168.1.4/home_buddy_crud/api/add_to_cart.php',
+      addToCartAPI,
       body: {
         'email': email,
         'id': product.id.toString(),
         'name': product.name,
-        'price': product.price,
+        'price': price[pIndex].toString(),
         'totalPrice': (price[pIndex] * quantity).toString(),
         'quantity': quantity.toString(),
         'type': key[pIndex],
