@@ -19,7 +19,7 @@ class _ProductDetailState extends State<ProductDetail> {
   String email;
   var finalPrice = "";
   var price = [], key = [];
-  int quantity = 0, pIndex = 0 ;
+  int quantity = 0, pIndex = 0;
 
   _ProductDetailState(this.product, this.email) {
     var data = json.decode(product.price);
@@ -31,7 +31,19 @@ class _ProductDetailState extends State<ProductDetail> {
     }
   }
 
+  void _setIndex(int index) {
+    setState(() {
+      pIndex = index;
+    });
+  }
+
   Future<void> _addToCart(context) async {
+    if (price[pIndex] * quantity <= 0) {
+      final snackBar = SnackBar(content: Text('Quantity is needed.'));
+      Scaffold.of(context).showSnackBar(snackBar);
+      return;
+    }
+
     final response = await http.post(
       addToCartAPI,
       body: {
@@ -88,13 +100,67 @@ class _ProductDetailState extends State<ProductDetail> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            finalPrice.trim(),
-                            style: TextStyle(
-                              fontSize: 26,
-                              color: Color(0xFF002CB8),
-                            ),
-                          ),
+                          key.length > 1
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 20,
+                                          width: 20,
+                                          child: Radio(
+                                            value: 0,
+                                            groupValue: pIndex,
+                                            activeColor: Color(0xFF007BFF),
+                                            onChanged: (val) {
+                                              _setIndex(val);
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          key[0] + ": ₱" + price[0].toString(),
+                                          style: TextStyle(
+                                            fontSize: 26,
+                                            color: Color(0xFF002CB8),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 20,
+                                          width: 20,
+                                          child: Radio(
+                                            value: 1,
+                                            groupValue: pIndex,
+                                            activeColor: Color(0xFF007BFF),
+                                            onChanged: (val) {
+                                              _setIndex(val);
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          key[1] + ": ₱" + price[1].toString(),
+                                          style: TextStyle(
+                                            fontSize: 26,
+                                            color: Color(0xFF002CB8),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              : Text(
+                                  key[0] + ": ₱" + price[0].toString(),
+                                  style: TextStyle(
+                                    fontSize: 26,
+                                    color: Color(0xFF002CB8),
+                                  ),
+                                ),
                           SizedBox(height: 10),
                           Text(
                             product.name,

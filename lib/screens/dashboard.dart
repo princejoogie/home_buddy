@@ -39,10 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
     print("EMAIL: " + email);
     listScreens = [
-      HomeTab(
-        key: PageStorageKey('HomeTab'),
-        email: email,
-      ),
+      HomeTab(key: PageStorageKey('HomeTab'), email: email),
       AlertTab(email: email),
       CartTab(email: email),
       ProfileTab(

@@ -160,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
             data[1]['cover_image'],
           );
 
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (BuildContext context) => DashboardScreen(

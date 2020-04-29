@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:home_buddy/host_details.dart';
 import 'package:home_buddy/models/product_model.dart';
 import 'package:home_buddy/screens/product_detail.dart';
+import 'package:home_buddy/screens/see_all.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -52,12 +53,22 @@ class _ProductListState extends State<ProductList> {
                   color: Color(0xFF534747),
                 ),
               ),
-              Text(
-                "See All",
-                style: TextStyle(
-                  fontSize: 14.0,
-                  letterSpacing: 1.0,
-                  color: Color(0xFF534747),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => SeeAllScreen(title: title),
+                    ),
+                  );
+                },
+                child: Text(
+                  "See All",
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    letterSpacing: 1.0,
+                    color: Color(0xFF007BFF),
+                  ),
                 ),
               ),
             ],

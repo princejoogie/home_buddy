@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:home_buddy/host_details.dart';
 import 'package:home_buddy/models/cart_item_model.dart';
+import 'package:home_buddy/screens/checkout.dart';
 import 'package:http/http.dart' as http;
 
 class CartTab extends StatefulWidget {
@@ -103,7 +104,14 @@ class _CartTabState extends State<CartTab> {
                 Expanded(
                   flex: 1,
                   child: RaisedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => CheckoutScreen(),
+                        ),
+                      );
+                    },
                     color: Color(0xFF007BFF),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30.0))),
