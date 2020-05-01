@@ -7,34 +7,47 @@ import 'package:flutter/material.dart';
 import 'package:home_buddy/models/product_model.dart';
 
 class SeeAllScreen extends StatefulWidget {
-  final String title, email;
+  final String title, email, name;
   final Color color;
 
-  SeeAllScreen({this.title, this.color, this.email});
+  SeeAllScreen({this.title, this.color, this.email, this.name});
   @override
   _SeeAllScreenState createState() =>
-      _SeeAllScreenState(this.title, this.color, this.email);
+      _SeeAllScreenState(this.title, this.color, this.email, this.name);
 }
 
 class _SeeAllScreenState extends State<SeeAllScreen> {
-  String title, email;
+  String title, email, name;
   Color color;
+  bool noResult = false;
+  int num = 0;
 
-  _SeeAllScreenState(this.title, this.color, this.email);
+  _SeeAllScreenState(this.title, this.color, this.email, this.name);
 
   Future<List<Product>> _fetchProducts() async {
-    final response = await http.get(getByCategoryAPI + this.title);
+    final response = title != null
+        ? await http.get(getByCategoryAPI + this.title)
+        : await http.get(searchAPI + this.name);
 
-    var data = json.decode(response.body);
+    if (response.body == 'empty') {
+      noResult = true;
+      return null;
+    } else {
+      var data = json.decode(response.body);
+      List<Product> products = [];
 
-    List<Product> products = [];
+      for (var p in data) {
+        Product product = Product.fromJson(p);
+        products.add(product);
+      }
 
-    for (var p in data) {
-      Product product = Product.fromJson(p);
-      products.add(product);
+      if (!mounted) return null;
+      setState(() {
+        num = products.length;
+      });
+
+      return products;
     }
-
-    return products;
   }
 
   @override
@@ -83,15 +96,27 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         ),
                       ),
                       SizedBox(width: 10),
-                      Text(
-                        title.toUpperCase(),
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.5,
-                        ),
-                      ),
+                      title != null
+                          ? Text(
+                              title.toUpperCase(),
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.5,
+                              ),
+                            )
+                          : Text(
+                              num.toString() +
+                                  ' Results for ' +
+                                  name,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.5,
+                              ),
+                            ),
                     ],
                   ),
                 ),
@@ -105,8 +130,20 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
               child: FutureBuilder(
                 future: _fetchProducts(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.data == null) {
-                    return Container(child: Center(child: Text("Loading...")));
+                  if (noResult == true) {
+                    return Container(
+                      child: Center(child: Text("No Results...")),
+                    );
+                  } else if (snapshot.data == null) {
+                    return Container(
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          valueColor: new AlwaysStoppedAnimation<Color>(
+                            Color(0xFF007BFF),
+                          ),
+                        ),
+                      ),
+                    );
                   } else {
                     return GridView.builder(
                       itemCount: snapshot.data.length,
@@ -116,6 +153,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                       ),
                       itemBuilder: (BuildContext context, int index) {
                         Product product = snapshot.data[index];
+
                         return GestureDetector(
                           child: Padding(
                             padding: index % 2 == 0
@@ -169,6 +207,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                         children: [
                                           Text(
                                             product.name,
+                                            overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
                                               fontSize: 18,
                                               color: Colors.white,

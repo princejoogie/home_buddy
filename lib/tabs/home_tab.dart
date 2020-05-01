@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:home_buddy/host_details.dart';
 import 'package:home_buddy/models/product_list.dart';
+import 'package:home_buddy/screens/see_all.dart';
 
 class HomeTab extends StatefulWidget {
   final String email;
@@ -12,6 +14,8 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   String email;
+  TextEditingController _searchText = TextEditingController();
+
   _HomeTabState(this.email);
 
   @override
@@ -34,7 +38,7 @@ class _HomeTabState extends State<HomeTab> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Container(
-                      height: 50.0,
+                      height: 40.0,
                       child: Image(
                         image: AssetImage('assets/logoSmall.png'),
                       ),
@@ -42,22 +46,43 @@ class _HomeTabState extends State<HomeTab> {
                     SizedBox(width: 20),
                     Expanded(
                       child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25.0),
-                          color: Color(0xFFE3D9D9),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 20),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Type Keywords...",
-                              style: TextStyle(
-                                color: Color(0xFF7B7676),
-                              ),
-                            ),
+                        height: 40,
+                        child: CupertinoTextField(
+                          controller: _searchText,
+                          placeholder:
+                              'Search Keywords... ex. meat, vegetables',
+                          prefix: Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Icon(Icons.search, color: Color(0xFF7B7676)),
                           ),
+                          clearButtonMode: OverlayVisibilityMode.editing,
+                          enableInteractiveSelection: true,
+                          enableSuggestions: true,
+                          autofocus: false,
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color(0xFFF2F2F2),
+                          ),
+                          onEditingComplete: () {
+                            if (_searchText.text.trim() == '') {
+                              final snackBar = SnackBar(
+                                  content: Text('Input Field is empty.'));
+                              Scaffold.of(context).showSnackBar(snackBar);
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      SeeAllScreen(
+                                    color: Color(0xFF6FBAF7),
+                                    email: email,
+                                    name: _searchText.text.trim(),
+                                  ),
+                                ),
+                              );
+                            }
+                          },
                         ),
                       ),
                     ),
