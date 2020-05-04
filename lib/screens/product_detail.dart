@@ -31,6 +31,12 @@ class _ProductDetailState extends State<ProductDetail> {
     }
   }
 
+  List<Widget> printRating(double rating) {
+    var val = [];
+   
+    return val;
+  }
+
   void _setIndex(int index) {
     setState(() {
       pIndex = index;
@@ -172,12 +178,12 @@ class _ProductDetailState extends State<ProductDetail> {
                           SizedBox(height: 10),
                           Row(
                             children: <Widget>[
-                              Text("3.5", style: TextStyle(fontSize: 20)),
-                              Icon(Icons.star),
-                              Icon(Icons.star),
-                              Icon(Icons.star),
-                              Icon(Icons.star_half),
-                              Icon(Icons.star_border),
+                              Text(product.rating,
+                                  style: TextStyle(fontSize: 20)),
+                              for (int i = 0;
+                                  i < double.parse(product.rating);
+                                  i++)
+                                Icon(Icons.star)
                             ],
                           ),
                         ],

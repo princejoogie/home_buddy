@@ -6,6 +6,7 @@ class Product {
   var stock;
   var description;
   var imageUrl;
+  var rating;
 
   Product({
     this.id,
@@ -15,6 +16,7 @@ class Product {
     this.stock,
     this.description,
     this.imageUrl,
+    this.rating
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class Product {
       stock: json['stock'],
       description: json['description'],
       imageUrl: json['image_url'],
+      rating: json['rating'],
     );
   }
 
@@ -37,5 +40,6 @@ class Product {
         'stock': stock,
         'description': description,
         'image_url': imageUrl,
+        'rating': rating,
       };
 }

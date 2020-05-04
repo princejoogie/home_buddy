@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:home_buddy/host_details.dart';
 import 'package:home_buddy/screens/dashboard.dart';
+import 'package:home_buddy/screens/register_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -194,8 +195,17 @@ class _LoginScreenState extends State<LoginScreen> {
           children: <Widget>[
             Positioned(
               top: 0,
-              child: Image(
-                image: AssetImage('assets/topRec.png'),
+              right: 0,
+              left: 0,
+              bottom: MediaQuery.of(context).size.height / 2,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color(0xFF007BFF),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(50),
+                  ),
+                ),
               ),
             ),
             Padding(
@@ -210,8 +220,39 @@ class _LoginScreenState extends State<LoginScreen> {
             Positioned(
               bottom: 0,
               right: 50,
-              child: Image(
-                image: AssetImage('assets/botRec.png'),
+              child: Container(
+                padding: EdgeInsets.only(left: 15, right: 15, bottom: 50),
+                alignment: Alignment.center,
+                width: 100,
+                height: MediaQuery.of(context).size.height / 2 / 2,
+                decoration: BoxDecoration(
+                  color: Color(0xFF007BFF),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      width: 21,
+                      height: 21,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF6FBAF7),
+                        borderRadius: BorderRadius.circular(21 / 2),
+                      ),
+                    ),
+                    Container(
+                      width: 11,
+                      height: 11,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF6FBAF7),
+                        borderRadius: BorderRadius.circular(11 / 2),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Center(
@@ -280,7 +321,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   SizedBox(height: 10.0),
-                  Text("Register"),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => RegisterScreen(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "Register",
+                        style: TextStyle(
+                          color: Color(0xFF7B7676),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
