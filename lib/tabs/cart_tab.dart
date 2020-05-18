@@ -15,6 +15,7 @@ class CartTab extends StatefulWidget {
 
 class _CartTabState extends State<CartTab> {
   var totalPrice = 0;
+  bool deleting = false;
   String email;
 
   _CartTabState(this.email);
@@ -245,18 +246,22 @@ class _CartTabState extends State<CartTab> {
                                 child: InkWell(
                                   borderRadius: BorderRadius.circular(10),
                                   radius: 10,
-                                  onTap: () {
-                                    _removeItem(index);
+                                  onTap: () async {
+                                    setState(() => deleting = true);
+                                    await _removeItem(index);
+                                    setState(() => deleting = false);
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
                                     width: 20,
                                     height: 20,
-                                    child: Icon(
-                                      Icons.close,
-                                      color: Colors.black,
-                                      size: 20,
-                                    ),
+                                    child: deleting
+                                        ? CircularProgressIndicator()
+                                        : Icon(
+                                            Icons.close,
+                                            color: Colors.black,
+                                            size: 20,
+                                          ),
                                   ),
                                 ),
                               ),
