@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "441249982128",
+    "firebase_url": "https://homebuddy-3ab67.firebaseio.com",
+    "project_id": "homebuddy-3ab67",
+    "storage_bucket": "homebuddy-3ab67.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441249982128:android:fef85e3d21914f5e2efd75",
+        "android_client_info": {
+          "package_name": "com.example.home_buddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441249982128-b3mcck4brac8j44klhb3nef4q0p6slkc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.home_buddy",
+            "certificate_hash": "ca63088748a83af808166af06398ef473ae1316a"
+          }
+        },
+        {
+          "client_id": "441249982128-husm86uj5611raf419k371osth2tf2sj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRhsdnFZb6NmVKlfkhtzlIS79KNSS278c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441249982128-husm86uj5611raf419k371osth2tf2sj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -14,7 +14,7 @@ class CartTab extends StatefulWidget {
 }
 
 class _CartTabState extends State<CartTab> {
-  var totalPrice = 0;
+  var totalPrice = 0, itemCount = 0;
   bool deleting = false;
   String email;
 
@@ -44,6 +44,7 @@ class _CartTabState extends State<CartTab> {
     if (!mounted) return null;
     setState(() {
       totalPrice = 0;
+      itemCount = 0;
     });
     for (var i in data) {
       CartItem product = CartItem.fromJson(i);
@@ -52,6 +53,7 @@ class _CartTabState extends State<CartTab> {
       if (!mounted) return null;
       setState(() {
         totalPrice += product.totalPrice;
+        itemCount++;
       });
     }
 
@@ -106,10 +108,15 @@ class _CartTabState extends State<CartTab> {
                   flex: 1,
                   child: RaisedButton(
                     onPressed: () {
+                      print(totalPrice);
+                      print(itemCount);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) => CheckoutScreen(),
+                          builder: (BuildContext context) => CheckoutScreen(
+                            totalPrice: totalPrice,
+                            totalItems: itemCount,
+                          ),
                         ),
                       );
                     },

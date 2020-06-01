@@ -207,10 +207,12 @@ class _ProfileTabState extends State<ProfileTab> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(175 / 2),
-                          child: Image(
-                            image: NetworkImage(baseUrl + profileImage),
-                            fit: BoxFit.cover,
-                          ),
+                          child: profileImage == null
+                              ? Container()
+                              : Image(
+                                  image: NetworkImage(baseUrl + profileImage),
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
                     ),
