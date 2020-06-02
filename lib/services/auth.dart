@@ -52,6 +52,7 @@ class AuthService {
         password: password,
       );
       FirebaseUser user = result.user;
+      await user.sendEmailVerification();
 
       await DatabaseService(uid: user.uid).updateUserData(
         username: username,

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:home_buddy/screens/dashboard.dart';
 import 'package:home_buddy/screens/login_screen.dart';
+import 'package:home_buddy/screens/verification.dart';
 import 'package:home_buddy/services/database.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,8 @@ class Wrapper extends StatelessWidget {
 
     if (user == null) {
       return LoginScreen();
+    } else if (!user.isEmailVerified) {
+      return VerificationScreen();
     } else {
       return StreamProvider<DocumentSnapshot>.value(
         value: DatabaseService(

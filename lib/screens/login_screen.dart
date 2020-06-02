@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:home_buddy/screens/register_screen.dart';
 import 'package:home_buddy/services/auth.dart';
@@ -242,10 +243,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                           _loading = true;
                                         });
                                         // _login();
-                                        await _auth.signInWithEmailAndPassword(
+                                        dynamic result = await _auth
+                                            .signInWithEmailAndPassword(
                                           username.text.trim(),
                                           password.text.trim(),
                                         );
+                                        if (result.runtimeType ==
+                                            PlatformException) {
+                                          setState(() {
+                                            _loading = false;
+                                          });
+                                          _showError(
+                                            'Error Signing in',
+                                            result.message,
+                                          );
+                                        }
                                       },
                                       child: _loading
                                           ? Padding(
