@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:home_buddy/host_details.dart';
@@ -15,20 +16,25 @@ class CartTab extends StatefulWidget {
 
 class _CartTabState extends State<CartTab> {
   var totalPrice = 0, itemCount = 0;
+  StreamController _cartController;
   bool deleting = false;
   String email;
 
   _CartTabState(this.email);
+
+  @override
+  void initState() {
+    super.initState();
+    _cartController = new StreamController();
+    Timer.periodic(Duration(milliseconds: 500), (_) => loadCart());
+  }
 
   Future<void> _removeItem(int index) async {
     final response = await http.post(
       removeFromCartAPI,
       body: {'email': email, 'index': index.toString()},
     );
-
     print(response.body);
-
-    setState(() {});
   }
 
   Future<List<CartItem>> _fetchCartItems() async {
@@ -58,6 +64,13 @@ class _CartTabState extends State<CartTab> {
     }
 
     return items;
+  }
+
+  loadCart() async {
+    _fetchCartItems().then((res) async {
+      _cartController.add(res);
+      return res;
+    });
   }
 
   @override
@@ -177,8 +190,8 @@ class _CartTabState extends State<CartTab> {
           bottom: 110,
           right: 0,
           left: 0,
-          child: FutureBuilder(
-            future: _fetchCartItems(),
+          child: StreamBuilder(
+            stream: _cartController.stream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return Container(

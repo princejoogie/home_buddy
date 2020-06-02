@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:home_buddy/host_details.dart';
-import 'package:home_buddy/screens/login_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:home_buddy/services/auth.dart';
 
 class ProfileTab extends StatefulWidget {
   final String email, username, firstName, lastName, profileImage, coverImage;
@@ -21,6 +20,7 @@ class ProfileTab extends StatefulWidget {
 
 class _ProfileTabState extends State<ProfileTab> {
   String email, username, firstName, lastName, profileImage, coverImage;
+  AuthService auth = AuthService();
 
   _ProfileTabState(
     this.email,
@@ -30,17 +30,6 @@ class _ProfileTabState extends State<ProfileTab> {
     this.profileImage,
     this.coverImage,
   );
-
-  Future<void> _putUserData() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    await prefs.setString('email', null);
-    await prefs.setString('username', null);
-    await prefs.setString('firstName', null);
-    await prefs.setString('lastName', null);
-    await prefs.setString('profileImage', null);
-    await prefs.setString('coverImage', null);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,14 +108,8 @@ class _ProfileTabState extends State<ProfileTab> {
                               ),
                               FlatButton(
                                 onPressed: () async {
-                                  await _putUserData();
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          LoginScreen(),
-                                    ),
-                                  );
+                                  await auth.signOut();
+                                  Navigator.of(context).pop();
                                 },
                                 child: new Text("OK"),
                               )
@@ -177,7 +160,7 @@ class _ProfileTabState extends State<ProfileTab> {
                             ),
                             color: Color(0xFF6FBAF7),
                           ),
-                          child: coverImage == 'cover_image.png'
+                          child: coverImage == null
                               ? RaisedButton(onPressed: () {})
                               : ClipRRect(
                                   borderRadius: BorderRadius.only(

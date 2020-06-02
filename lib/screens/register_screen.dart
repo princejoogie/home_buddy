@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:home_buddy/host_details.dart';
+import 'package:home_buddy/services/auth.dart';
 import 'package:http/http.dart' as http;
 
 class RegisterScreen extends StatefulWidget {
@@ -9,6 +10,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
+  AuthService auth = AuthService();
   bool loading = false;
   String _email = "",
       _password = "",
@@ -251,9 +253,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   email: _email,
                                   password: _password,
                                 );
-                                if (!mounted) {
-                                  setState(() => loading = false);
-                                }
+                                await auth.signUpWithEmailAndPassword(
+                                  email: _email,
+                                  password: _password,
+                                  username: _username,
+                                  firstName: _firstName,
+                                  lastName: _lastName,
+                                );
                               }
                             },
                             child: loading
