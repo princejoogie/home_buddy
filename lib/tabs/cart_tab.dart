@@ -26,7 +26,7 @@ class _CartTabState extends State<CartTab> {
   void initState() {
     super.initState();
     _cartController = new StreamController();
-    Timer.periodic(Duration(milliseconds: 100), (_) => loadCart());
+    Timer.periodic(Duration(milliseconds: 300), (_) => loadCart());
   }
 
   Future<void> _removeItem(int index) async {

@@ -40,11 +40,12 @@ class ConfirmOrderState extends State<ConfirmOrder> {
       },
     );
 
-    print(addDeliveryResponse.body);
-
-    return addDeliveryResponse.body == 'success'
-        ? 'Your order is now being processed.'
-        : addDeliveryResponse.body;
+    if (addDeliveryResponse.body == 'success') {
+      await http.post(clearCartAPI, body: {'email': widget.email});
+      return 'Your order is now being processed.';
+    } else {
+      return addDeliveryResponse.body;
+    }
   }
 
   @override
