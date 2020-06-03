@@ -3,8 +3,8 @@ import 'package:home_buddy/screens/payment/cod.dart';
 import 'package:home_buddy/screens/payment/gcash.dart';
 
 class CheckoutScreen extends StatefulWidget {
-  final totalPrice, totalItems;
-  CheckoutScreen({this.totalPrice, this.totalItems});
+  final totalPrice, totalItems, email;
+  CheckoutScreen({this.totalPrice, this.totalItems, this.email});
   @override
   _CheckoutScreenState createState() => _CheckoutScreenState();
 }
@@ -39,6 +39,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     builder: (BuildContext context) => GcashScreen(
                       totalPrice: widget.totalPrice,
                       totalItems: widget.totalItems,
+                      email: widget.email,
                     ),
                   ),
                 );
@@ -70,6 +71,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     builder: (BuildContext context) => CashOnDeliveryScreen(
                       totalPrice: widget.totalPrice,
                       totalItems: widget.totalItems,
+                      email: widget.email,
                     ),
                   ),
                 );

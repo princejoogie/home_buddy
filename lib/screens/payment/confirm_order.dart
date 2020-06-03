@@ -1,19 +1,52 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:home_buddy/host_details.dart';
+import 'package:http/http.dart' as http;
 
 class ConfirmOrder extends StatefulWidget {
-  final totalPrice, totalItems, address, phoneNumber, name;
-  ConfirmOrder(
-      {this.totalPrice,
-      this.totalItems,
-      this.address,
-      this.phoneNumber,
-      this.name});
+  final totalPrice, totalItems, address, phoneNumber, name, email;
+  ConfirmOrder({
+    this.totalPrice,
+    this.totalItems,
+    this.address,
+    this.phoneNumber,
+    this.name,
+    this.email,
+  });
   @override
   ConfirmOrderState createState() => ConfirmOrderState();
 }
 
 class ConfirmOrderState extends State<ConfirmOrder> {
+  bool loading = false;
+  Future<String> addDelivery() async {
+    final response = await http.post(
+      getCartAPI,
+      body: {'email': widget.email},
+    );
+
+    var items = response.body;
+
+    var addDeliveryResponse = await http.post(
+      addDeliveryAPI,
+      body: {
+        'user_email': widget.email,
+        'status': 'PROCESSING',
+        'full_name': widget.name,
+        'phone_number': widget.phoneNumber,
+        'address': widget.address,
+        'is_gcash': 'false',
+        'items': items,
+      },
+    );
+
+    print(addDeliveryResponse.body);
+
+    return addDeliveryResponse.body == 'success'
+        ? 'Your order is now being processed.'
+        : addDeliveryResponse.body;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,30 +121,33 @@ class ConfirmOrderState extends State<ConfirmOrder> {
               child: RaisedButton(
                 elevation: 1.0,
                 color: Colors.blue,
-                onPressed: () {
-                  showDialog(
-                    barrierDismissible: false,
-                    context: context,
-                    child: new CupertinoAlertDialog(
-                      title: new Column(
-                        children: <Widget>[
-                          Text("Message"),
-                          SizedBox(height: 10),
-                        ],
-                      ),
-                      content: Text("Your order has been sent."),
-                      actions: <Widget>[
-                        FlatButton(
-                          onPressed: () {
-                            Navigator.popUntil(context,
-                                (Route<dynamic> route) => route.isFirst);
-                          },
-                          child: new Text("OK"),
-                        )
-                      ],
-                    ),
-                  );
-                },
+                onPressed: loading
+                    ? null
+                    : () async {
+                        setState(() => loading = true);
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          child: new CupertinoAlertDialog(
+                            title: new Column(
+                              children: <Widget>[
+                                Text("Message"),
+                                SizedBox(height: 10),
+                              ],
+                            ),
+                            content: Text(await addDelivery()),
+                            actions: <Widget>[
+                              FlatButton(
+                                onPressed: () {
+                                  Navigator.popUntil(context,
+                                      (Route<dynamic> route) => route.isFirst);
+                                },
+                                child: new Text("OK"),
+                              )
+                            ],
+                          ),
+                        );
+                      },
                 child: Text('Confirm', style: TextStyle(color: Colors.white)),
               ),
             ),

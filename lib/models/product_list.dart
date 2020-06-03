@@ -23,6 +23,7 @@ class _ProductListState extends State<ProductList> {
   _ProductListState(this.url, this.title, this.color, this.email);
 
   Future<List<Product>> _fetchProducts() async {
+    
     final response = await http.get(url);
 
     var data = json.decode(response.body);

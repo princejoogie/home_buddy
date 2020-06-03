@@ -26,7 +26,7 @@ class _CartTabState extends State<CartTab> {
   void initState() {
     super.initState();
     _cartController = new StreamController();
-    Timer.periodic(Duration(milliseconds: 500), (_) => loadCart());
+    Timer.periodic(Duration(milliseconds: 100), (_) => loadCart());
   }
 
   Future<void> _removeItem(int index) async {
@@ -129,6 +129,7 @@ class _CartTabState extends State<CartTab> {
                           builder: (BuildContext context) => CheckoutScreen(
                             totalPrice: totalPrice,
                             totalItems: itemCount,
+                            email: email,
                           ),
                         ),
                       );

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:home_buddy/screens/payment/confirm_order_gcash.dart';
 
 class GcashScreen extends StatefulWidget {
-  final totalPrice, totalItems;
-  GcashScreen({this.totalPrice, this.totalItems});
+  final totalPrice, totalItems, email;
+  GcashScreen({this.totalPrice, this.totalItems, this.email});
   @override
   _GcashScreenState createState() => _GcashScreenState();
 }
@@ -144,6 +144,7 @@ class _GcashScreenState extends State<GcashScreen> {
                               phoneNumber: _phoneNumber,
                               name: _fullName,
                               referenceNumber: _referenceNumber,
+                              email: widget.email,
                             ),
                           ),
                         );

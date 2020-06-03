@@ -12,6 +12,8 @@ String addToCartAPI =
     'http://smdccondosaleonline.com/home_buddy/api/add_to_cart.php';
 String removeFromCartAPI =
     'http://smdccondosaleonline.com/home_buddy/api/remove_from_cart.php';
+String addDeliveryAPI =
+    'http://smdccondosaleonline.com/home_buddy/api/add_delivery.php';
 String getCartAPI =
     'http://smdccondosaleonline.com/home_buddy/api/get_cart.php';
 String getByCategoryAPI =
