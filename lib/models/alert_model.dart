@@ -8,17 +8,22 @@ class AlertItem {
   var isGcash;
   var gcashReferenceNumber;
   var items;
+  var message;  
+  var deliveryFee;
 
-  AlertItem(
-      {this.id,
-      this.userEmail,
-      this.status,
-      this.fullName,
-      this.phoneNumber,
-      this.address,
-      this.isGcash,
-      this.gcashReferenceNumber,
-      this.items});
+  AlertItem({
+    this.id,
+    this.userEmail,
+    this.status,
+    this.fullName,
+    this.phoneNumber,
+    this.address,
+    this.isGcash,
+    this.gcashReferenceNumber,
+    this.items,
+    this.message,
+    this.deliveryFee,
+  });
 
   factory AlertItem.fromJson(Map<String, dynamic> json) {
     return AlertItem(
@@ -31,6 +36,8 @@ class AlertItem {
       isGcash: json['is_gcash'],
       gcashReferenceNumber: json['gcash_reference_number'],
       items: json['items'],
+      message: json['message'],
+      deliveryFee: json['delivery_fee'],
     );
   }
 
@@ -44,5 +51,6 @@ class AlertItem {
         'is_gcash': isGcash,
         'gcash_reference_number': gcashReferenceNumber,
         'items': items,
+        'delivery_fee': deliveryFee,
       };
 }

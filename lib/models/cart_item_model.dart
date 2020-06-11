@@ -6,6 +6,7 @@ class CartItem {
   var quantity;
   var type;
   var imageUrl;
+  var deliveryFee;
 
   CartItem({
     this.id,
@@ -15,6 +16,7 @@ class CartItem {
     this.quantity,
     this.type,
     this.imageUrl,
+    this.deliveryFee,
   });
 
   factory CartItem.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class CartItem {
       quantity: json['quantity'],
       type: json['type'],
       imageUrl: json['imageUrl'],
+      deliveryFee: json['delivery_fee'],
     );
   }
 
@@ -37,5 +40,6 @@ class CartItem {
         'quantity': quantity,
         'type': type,
         'imageUrl': imageUrl,
+        'delivery_fee': deliveryFee,
       };
 }

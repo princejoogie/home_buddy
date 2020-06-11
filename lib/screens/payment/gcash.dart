@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:home_buddy/screens/payment/confirm_order_gcash.dart';
 
 class GcashScreen extends StatefulWidget {
-  final totalPrice, totalItems, email;
-  GcashScreen({this.totalPrice, this.totalItems, this.email});
+  final totalPrice, totalItems, email, deliveryFee;
+  GcashScreen({this.totalPrice, this.totalItems, this.email, this.deliveryFee});
   @override
   _GcashScreenState createState() => _GcashScreenState();
 }
@@ -15,6 +15,7 @@ class _GcashScreenState extends State<GcashScreen> {
       _phoneNumber = "",
       _address = "",
       _referenceNumber = "",
+      _message = "",
       error = "";
 
   @override
@@ -124,6 +125,23 @@ class _GcashScreenState extends State<GcashScreen> {
                     ),
                   ),
                   SizedBox(height: 15.0),
+                  TextFormField(
+                    onChanged: (val) {
+                      setState(() {
+                        _message = val.trim();
+                        error = "";
+                      });
+                    },
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.text_fields, color: Colors.grey),
+                      border: OutlineInputBorder(),
+                      disabledBorder: InputBorder.none,
+                      contentPadding: EdgeInsets.all(10.0),
+                      labelText: 'Additional Message',
+                      labelStyle: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  SizedBox(height: 15.0),
                   RaisedButton(
                     elevation: 1.0,
                     color: Colors.blue,
@@ -137,7 +155,8 @@ class _GcashScreenState extends State<GcashScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => ConfirmOrderGcash(
+                            builder: (BuildContext context) =>
+                                ConfirmOrderGcash(
                               totalPrice: widget.totalPrice,
                               totalItems: widget.totalItems,
                               address: _address,
@@ -145,6 +164,8 @@ class _GcashScreenState extends State<GcashScreen> {
                               name: _fullName,
                               referenceNumber: _referenceNumber,
                               email: widget.email,
+                              message: _message,
+                              deliveryFee: widget.deliveryFee,
                             ),
                           ),
                         );

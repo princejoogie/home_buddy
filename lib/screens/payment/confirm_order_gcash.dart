@@ -10,7 +10,9 @@ class ConfirmOrderGcash extends StatefulWidget {
       phoneNumber,
       name,
       referenceNumber,
-      email;
+      email,
+      message,
+      deliveryFee;
   ConfirmOrderGcash({
     this.totalPrice,
     this.totalItems,
@@ -19,6 +21,8 @@ class ConfirmOrderGcash extends StatefulWidget {
     this.name,
     this.referenceNumber,
     this.email,
+    this.message,
+    this.deliveryFee,
   });
   @override
   ConfirmOrderGcashState createState() => ConfirmOrderGcashState();
@@ -45,6 +49,8 @@ class ConfirmOrderGcashState extends State<ConfirmOrderGcash> {
         'is_gcash': 'true',
         'gcash_reference_number': widget.referenceNumber,
         'items': items,
+        'message': widget.message,
+        'delivery_fee': widget.deliveryFee.toString(),
       },
     );
 
@@ -127,6 +133,18 @@ class ConfirmOrderGcashState extends State<ConfirmOrderGcash> {
                   cells: <DataCell>[
                     DataCell(Text('Total Price')),
                     DataCell(Text('₱' + widget.totalPrice.toString())),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('Delivery Fee')),
+                    DataCell(Text(widget.deliveryFee.toString())),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('Additional Message')),
+                    DataCell(Text(widget.message.toString())),
                   ],
                 ),
               ],

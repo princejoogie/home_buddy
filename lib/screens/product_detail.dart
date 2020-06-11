@@ -33,7 +33,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
   List<Widget> printRating(double rating) {
     var val = [];
-   
+
     return val;
   }
 
@@ -61,6 +61,7 @@ class _ProductDetailState extends State<ProductDetail> {
         'quantity': quantity.toString(),
         'type': key[pIndex],
         'imageUrl': product.imageUrl,
+        'delivery_fee': product.deliveryFee,
       },
     );
 
@@ -225,6 +226,21 @@ class _ProductDetailState extends State<ProductDetail> {
                           SizedBox(height: 10),
                           Text(
                             product.stock,
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            "Delivery Fee",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color(0xFF002CB8),
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            product.deliveryFee,
                             style: TextStyle(
                               fontSize: 16,
                             ),

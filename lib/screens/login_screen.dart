@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           Container(
             child: Text(
-              'Email or Username',
+              'Email',
               style: TextStyle(
                 fontSize: 16,
                 color: Color(0xFF7B7676),

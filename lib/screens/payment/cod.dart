@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:home_buddy/screens/payment/confirm_order.dart';
 
 class CashOnDeliveryScreen extends StatefulWidget {
-  final totalPrice, totalItems, email;
-  CashOnDeliveryScreen({this.totalPrice, this.totalItems, this.email});
+  final totalPrice, totalItems, email, deliveryFee;
+  CashOnDeliveryScreen(
+      {this.totalPrice, this.totalItems, this.email, this.deliveryFee});
   @override
   _CashOnDeliveryScreenState createState() => _CashOnDeliveryScreenState();
 }
@@ -11,7 +12,11 @@ class CashOnDeliveryScreen extends StatefulWidget {
 class _CashOnDeliveryScreenState extends State<CashOnDeliveryScreen> {
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
-  String _fullName = "", _phoneNumber = "", _address = "", error = "";
+  String _fullName = "",
+      _phoneNumber = "",
+      _address = "",
+      _message = "",
+      error = "";
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +106,23 @@ class _CashOnDeliveryScreenState extends State<CashOnDeliveryScreen> {
                     ),
                   ),
                   SizedBox(height: 15.0),
+                  TextFormField(
+                    onChanged: (val) {
+                      setState(() {
+                        _message = val.trim();
+                        error = "";
+                      });
+                    },
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.text_fields, color: Colors.grey),
+                      border: OutlineInputBorder(),
+                      disabledBorder: InputBorder.none,
+                      contentPadding: EdgeInsets.all(10.0),
+                      labelText: 'Additional Message',
+                      labelStyle: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  SizedBox(height: 15.0),
                   RaisedButton(
                     elevation: 1.0,
                     color: Colors.blue,
@@ -121,6 +143,8 @@ class _CashOnDeliveryScreenState extends State<CashOnDeliveryScreen> {
                               phoneNumber: _phoneNumber,
                               name: _fullName,
                               email: widget.email,
+                              message: _message,
+                              deliveryFee: widget.deliveryFee,
                             ),
                           ),
                         );

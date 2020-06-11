@@ -15,7 +15,7 @@ class CartTab extends StatefulWidget {
 }
 
 class _CartTabState extends State<CartTab> {
-  var totalPrice = 0, itemCount = 0;
+  var totalPrice = 0, itemCount = 0, deliveryFee = 0;
   StreamController _cartController;
   bool deleting = false;
   String email;
@@ -59,6 +59,7 @@ class _CartTabState extends State<CartTab> {
       if (!mounted) return null;
       setState(() {
         totalPrice += product.totalPrice;
+        deliveryFee = product.deliveryFee;
         itemCount++;
       });
     }
@@ -121,18 +122,25 @@ class _CartTabState extends State<CartTab> {
                   flex: 1,
                   child: RaisedButton(
                     onPressed: () {
-                      print(totalPrice);
-                      print(itemCount);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => CheckoutScreen(
-                            totalPrice: totalPrice,
-                            totalItems: itemCount,
-                            email: email,
+                      if (itemCount < 1) {
+                        final snackBar =
+                            SnackBar(content: Text('Your cart is Empty'));
+                        Scaffold.of(context).showSnackBar(snackBar);
+                      } else {
+                        print(totalPrice);
+                        print(itemCount);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => CheckoutScreen(
+                              totalPrice: totalPrice,
+                              totalItems: itemCount,
+                              email: email,
+                              deliveryFee: deliveryFee,
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      }
                     },
                     color: Color(0xFF007BFF),
                     shape: RoundedRectangleBorder(

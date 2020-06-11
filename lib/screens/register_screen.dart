@@ -24,8 +24,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final response = await http.post(
       registerAPI,
       body: {
-        'first_name': firstName,
-        'last_name': lastName,
+        'first_name': firstName.toString().toUpperCase(),
+        'last_name': lastName.toString().toUpperCase(),
         'username': username,
         'email': email,
         'password': password,

@@ -102,6 +102,18 @@ class _AlertDetailState extends State<AlertDetail> {
                         DataCell(Text(widget.alertItem.gcashReferenceNumber)),
                       ],
                     ),
+                  DataRow(
+                    cells: <DataCell>[
+                      DataCell(Text('Additional Message')),
+                      DataCell(Text(widget.alertItem.message)),
+                    ],
+                  ),
+                  DataRow(
+                    cells: <DataCell>[
+                      DataCell(Text('Delivery Fee')),
+                      DataCell(Text(widget.alertItem.deliveryFee)),
+                    ],
+                  ),
                 ],
               ),
               SizedBox(height: 10),

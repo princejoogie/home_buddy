@@ -4,7 +4,14 @@ import 'package:home_buddy/host_details.dart';
 import 'package:http/http.dart' as http;
 
 class ConfirmOrder extends StatefulWidget {
-  final totalPrice, totalItems, address, phoneNumber, name, email;
+  final totalPrice,
+      totalItems,
+      address,
+      phoneNumber,
+      name,
+      email,
+      message,
+      deliveryFee;
   ConfirmOrder({
     this.totalPrice,
     this.totalItems,
@@ -12,6 +19,8 @@ class ConfirmOrder extends StatefulWidget {
     this.phoneNumber,
     this.name,
     this.email,
+    this.message,
+    this.deliveryFee,
   });
   @override
   ConfirmOrderState createState() => ConfirmOrderState();
@@ -37,6 +46,8 @@ class ConfirmOrderState extends State<ConfirmOrder> {
         'address': widget.address,
         'is_gcash': 'false',
         'items': items,
+        'message': widget.message,
+        'delivery_fee': widget.deliveryFee.toString(),
       },
     );
 
@@ -113,6 +124,18 @@ class ConfirmOrderState extends State<ConfirmOrder> {
                   cells: <DataCell>[
                     DataCell(Text('Total Price')),
                     DataCell(Text('₱' + widget.totalPrice.toString())),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('Delivery Fee')),
+                    DataCell(Text(widget.deliveryFee.toString())),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('Additional Message')),
+                    DataCell(Text(widget.message.toString())),
                   ],
                 ),
               ],
