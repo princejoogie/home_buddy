@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
     return StreamProvider<FirebaseUser>.value(
       value: AuthService().user,
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'HomeBuddy',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Color(0xFF3EBACE),

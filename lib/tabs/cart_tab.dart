@@ -153,7 +153,8 @@ class _CartTabState extends State<CartTab> {
                         children: [
                           Text(
                             'Checkout',
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(color: Colors.white),
                           ),
                           Icon(Icons.arrow_forward, color: Colors.white),
                         ],

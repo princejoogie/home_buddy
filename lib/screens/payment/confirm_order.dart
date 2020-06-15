@@ -48,6 +48,7 @@ class ConfirmOrderState extends State<ConfirmOrder> {
         'items': items,
         'message': widget.message,
         'delivery_fee': widget.deliveryFee.toString(),
+        'total_price': widget.totalPrice.toString(),
       },
     );
 
@@ -122,14 +123,17 @@ class ConfirmOrderState extends State<ConfirmOrder> {
                 ),
                 DataRow(
                   cells: <DataCell>[
-                    DataCell(Text('Total Price')),
-                    DataCell(Text('₱' + widget.totalPrice.toString())),
+                    DataCell(Text('Delivery Fee')),
+                    DataCell(Text('₱' + widget.deliveryFee.toString())),
                   ],
                 ),
                 DataRow(
                   cells: <DataCell>[
-                    DataCell(Text('Delivery Fee')),
-                    DataCell(Text(widget.deliveryFee.toString())),
+                    DataCell(Text('Total Price + Delivery Fee')),
+                    DataCell(Text('₱' +
+                        (int.parse(widget.totalPrice.toString()) +
+                                int.parse(widget.deliveryFee.toString()))
+                            .toString())),
                   ],
                 ),
                 DataRow(

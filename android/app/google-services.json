@@ -38,6 +38,13 @@
             {
               "client_id": "441249982128-husm86uj5611raf419k371osth2tf2sj.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "441249982128-dsu0mlpco41huqrl0squstda196087lt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.homeBuddy"
+              }
             }
           ]
         }

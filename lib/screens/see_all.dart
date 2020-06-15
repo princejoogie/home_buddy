@@ -194,8 +194,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                     right: 0,
                                     top: (MediaQuery.of(context).size.width /
                                                 2) /
-                                            2 +
-                                        20,
+                                            2,
                                     child: Container(
                                       padding: EdgeInsets.all(10),
                                       color: color,

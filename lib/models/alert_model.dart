@@ -8,8 +8,9 @@ class AlertItem {
   var isGcash;
   var gcashReferenceNumber;
   var items;
-  var message;  
+  var message;
   var deliveryFee;
+  var totalPrice;
 
   AlertItem({
     this.id,
@@ -23,6 +24,7 @@ class AlertItem {
     this.items,
     this.message,
     this.deliveryFee,
+    this.totalPrice,
   });
 
   factory AlertItem.fromJson(Map<String, dynamic> json) {
@@ -38,6 +40,7 @@ class AlertItem {
       items: json['items'],
       message: json['message'],
       deliveryFee: json['delivery_fee'],
+      totalPrice: json['total_price'],
     );
   }
 
@@ -52,5 +55,6 @@ class AlertItem {
         'gcash_reference_number': gcashReferenceNumber,
         'items': items,
         'delivery_fee': deliveryFee,
+        'total_price': totalPrice,
       };
 }

@@ -109,11 +109,20 @@ class _AlertDetailState extends State<AlertDetail> {
                     ],
                   ),
                   DataRow(
-                    cells: <DataCell>[
-                      DataCell(Text('Delivery Fee')),
-                      DataCell(Text(widget.alertItem.deliveryFee)),
-                    ],
-                  ),
+                  cells: <DataCell>[
+                    DataCell(Text('Delivery Fee')),
+                    DataCell(Text('₱' + widget.alertItem.deliveryFee.toString())),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('Total Price + Delivery Fee')),
+                    DataCell(Text('₱' +
+                        (int.parse(widget.alertItem.totalPrice.toString()) +
+                                int.parse(widget.alertItem.deliveryFee.toString()))
+                            .toString())),
+                  ],
+                ),
                 ],
               ),
               SizedBox(height: 10),
@@ -192,51 +201,51 @@ class _AlertDetailState extends State<AlertDetail> {
                   ),
                 );
               }).toList(),
-              FlatButton(
-                color: Colors.red,
-                onPressed: () {
-                  showDialog(
-                    barrierDismissible: false,
-                    context: context,
-                    child: new CupertinoAlertDialog(
-                      title: new Column(
-                        children: <Widget>[
-                          Text("Message"),
-                          SizedBox(height: 10),
-                        ],
-                      ),
-                      content: Text(
-                          deleting ? 'Deleting Order... ' : 'Cancel Order?'),
-                      actions: <Widget>[
-                        FlatButton(
-                          onPressed: deleting
-                              ? null
-                              : () {
-                                  Navigator.of(context).pop();
-                                },
-                          child: new Text("Cancel"),
-                        ),
-                        FlatButton(
-                          onPressed: deleting
-                              ? null
-                              : () async {
-                                  setState(() {
-                                    deleting = true;
-                                  });
-                                  await deleteOrder();
-                                  Navigator.popUntil(context,
-                                      (Route<dynamic> route) => route.isFirst);
-                                },
-                          child: new Text("OK"),
-                        )
-                      ],
-                    ),
-                  );
-                },
-                child:
-                    Text('CANCEL ORDER', style: TextStyle(color: Colors.white)),
-              ),
-              SizedBox(height: 10),
+              // FlatButton(
+              //   color: Colors.red,
+              //   onPressed: () {
+              //     showDialog(
+              //       barrierDismissible: false,
+              //       context: context,
+              //       child: new CupertinoAlertDialog(
+              //         title: new Column(
+              //           children: <Widget>[
+              //             Text("Message"),
+              //             SizedBox(height: 10),
+              //           ],
+              //         ),
+              //         content: Text(
+              //             deleting ? 'Deleting Order... ' : 'Cancel Order?'),
+              //         actions: <Widget>[
+              //           FlatButton(
+              //             onPressed: deleting
+              //                 ? null
+              //                 : () {
+              //                     Navigator.of(context).pop();
+              //                   },
+              //             child: new Text("Cancel"),
+              //           ),
+              //           FlatButton(
+              //             onPressed: deleting
+              //                 ? null
+              //                 : () async {
+              //                     setState(() {
+              //                       deleting = true;
+              //                     });
+              //                     await deleteOrder();
+              //                     Navigator.popUntil(context,
+              //                         (Route<dynamic> route) => route.isFirst);
+              //                   },
+              //             child: new Text("OK"),
+              //           )
+              //         ],
+              //       ),
+              //     );
+              //   },
+              //   child:
+              //       Text('CANCEL ORDER', style: TextStyle(color: Colors.white)),
+              // ),
+              SizedBox(height: 40),
             ],
           ),
         ),
