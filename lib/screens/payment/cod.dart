@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:home_buddy/screens/payment/confirm_order.dart';
 
 class CashOnDeliveryScreen extends StatefulWidget {
-  final totalPrice, totalItems, email, deliveryFee;
+  final totalPrice, totalItems, email, deliveryFee, items;
   CashOnDeliveryScreen(
-      {this.totalPrice, this.totalItems, this.email, this.deliveryFee});
+      {this.totalPrice, this.totalItems, this.email, this.deliveryFee, this.items});
   @override
   _CashOnDeliveryScreenState createState() => _CashOnDeliveryScreenState();
 }
@@ -145,6 +145,7 @@ class _CashOnDeliveryScreenState extends State<CashOnDeliveryScreen> {
                               email: widget.email,
                               message: _message,
                               deliveryFee: widget.deliveryFee,
+                              items: widget.items,
                             ),
                           ),
                         );

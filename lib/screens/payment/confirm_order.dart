@@ -11,7 +11,8 @@ class ConfirmOrder extends StatefulWidget {
       name,
       email,
       message,
-      deliveryFee;
+      deliveryFee,
+      items;
   ConfirmOrder({
     this.totalPrice,
     this.totalItems,
@@ -21,6 +22,7 @@ class ConfirmOrder extends StatefulWidget {
     this.email,
     this.message,
     this.deliveryFee,
+    this.items,
   });
   @override
   ConfirmOrderState createState() => ConfirmOrderState();

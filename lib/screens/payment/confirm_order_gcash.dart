@@ -12,7 +12,8 @@ class ConfirmOrderGcash extends StatefulWidget {
       referenceNumber,
       email,
       message,
-      deliveryFee;
+      deliveryFee,
+      items;
   ConfirmOrderGcash({
     this.totalPrice,
     this.totalItems,
@@ -23,6 +24,7 @@ class ConfirmOrderGcash extends StatefulWidget {
     this.email,
     this.message,
     this.deliveryFee,
+    this.items,
   });
   @override
   ConfirmOrderGcashState createState() => ConfirmOrderGcashState();

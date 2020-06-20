@@ -26,3 +26,5 @@ String getAlertsAPI =
     'http://smdccondosaleonline.com/home_buddy/api/get_alerts.php';
 String deleteOrderAPI =
     'http://smdccondosaleonline.com/home_buddy/api/delete_order.php';
+String removeStockAPI =
+    'http://smdccondosaleonline.com/home_buddy/api/remove_stock.php';

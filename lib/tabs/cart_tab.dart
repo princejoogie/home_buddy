@@ -16,6 +16,7 @@ class CartTab extends StatefulWidget {
 
 class _CartTabState extends State<CartTab> {
   var totalPrice = 0, itemCount = 0, deliveryFee = 0;
+  var finalItems;
   StreamController _cartController;
   bool deleting = false;
   String email;
@@ -63,6 +64,8 @@ class _CartTabState extends State<CartTab> {
         itemCount++;
       });
     }
+
+    setState(() => finalItems = items);
 
     return items;
   }
@@ -137,6 +140,7 @@ class _CartTabState extends State<CartTab> {
                               totalItems: itemCount,
                               email: email,
                               deliveryFee: deliveryFee,
+                              items: finalItems,
                             ),
                           ),
                         );
