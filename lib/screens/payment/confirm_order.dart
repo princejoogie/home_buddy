@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:home_buddy/host_details.dart';
+import 'package:home_buddy/models/cart_item_model.dart';
 import 'package:http/http.dart' as http;
 
 class ConfirmOrder extends StatefulWidget {
@@ -59,6 +60,20 @@ class ConfirmOrderState extends State<ConfirmOrder> {
       return 'Your order is now being processed.';
     } else {
       return addDeliveryResponse.body;
+    }
+  }
+
+  Future<void> removeStocks() async {
+    for (CartItem item in widget.items) {
+      final response = await http.post(getStockAPI, body: {'id': item.id.toString()});
+      var currentStock = int.parse(response.body);
+      await http.post(
+        removeStockAPI,
+        body: {
+          'id': item.id.toString(),
+          'stock': (currentStock - item.quantity).toString(),
+        },
+      );
     }
   }
 
@@ -155,6 +170,7 @@ class ConfirmOrderState extends State<ConfirmOrder> {
                     ? null
                     : () async {
                         setState(() => loading = true);
+                        await removeStocks();
                         showDialog(
                           barrierDismissible: false,
                           context: context,

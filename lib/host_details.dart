@@ -28,3 +28,5 @@ String deleteOrderAPI =
     'http://smdccondosaleonline.com/home_buddy/api/delete_order.php';
 String removeStockAPI =
     'http://smdccondosaleonline.com/home_buddy/api/remove_stock.php';
+String getStockAPI =
+    'http://smdccondosaleonline.com/home_buddy/api/get_stock.php';
