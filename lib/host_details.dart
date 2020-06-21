@@ -1,10 +1,4 @@
 String baseUrl = 'http://smdccondosaleonline.com/home_buddy/images/';
-String fruitsAndVegetablesAPI =
-    'http://smdccondosaleonline.com/home_buddy/api/get_category.php?category=fruits%20and%20vegetables';
-String meatAndSeafoodAPI =
-    'http://smdccondosaleonline.com/home_buddy/api/get_category.php?category=Meat%20and%20Seafood';
-String frozedAPI =
-    'http://smdccondosaleonline.com/home_buddy/api/get_category.php?category=Frozen';
 String loginAPI = 'http://smdccondosaleonline.com/home_buddy/api/login.php';
 String registerAPI =
     'http://smdccondosaleonline.com/home_buddy/api/register.php';

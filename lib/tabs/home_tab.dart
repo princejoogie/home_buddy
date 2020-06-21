@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:home_buddy/host_details.dart';
 import 'package:home_buddy/models/product_list.dart';
 import 'package:home_buddy/screens/see_all.dart';
 
@@ -92,22 +91,49 @@ class _HomeTabState extends State<HomeTab> {
             ],
           ),
           ProductList(
-            url: fruitsAndVegetablesAPI,
             title: 'Fruits and Vegetables',
             color: Color(0xFF7AFF00).withOpacity(0.8),
             email: email,
           ),
           SizedBox(height: 10),
           ProductList(
-            url: meatAndSeafoodAPI,
             title: 'Meat and Seafood',
             color: Color(0xFF6FBAF7).withOpacity(0.8),
             email: email,
           ),
           SizedBox(height: 10),
           ProductList(
-            url: frozedAPI,
             title: 'Frozen',
+            color: Color(0xFFFF8300).withOpacity(0.8),
+            email: email,
+          ),
+          SizedBox(height: 10),
+          ProductList(
+            title: 'Pet Care and Food',
+            color: Color(0xFFFF8300).withOpacity(0.8),
+            email: email,
+          ),
+          SizedBox(height: 10),
+          ProductList(
+            title: 'Keto Vendors and Products',
+            color: Color(0xFFFF8300).withOpacity(0.8),
+            email: email,
+          ),
+          SizedBox(height: 10),
+          ProductList(
+            title: 'Rice Pasta Noodles',
+            color: Color(0xFFFF8300).withOpacity(0.8),
+            email: email,
+          ),
+          SizedBox(height: 10),
+          ProductList(
+            title: 'Canned and Ready-to-eat Products',
+            color: Color(0xFFFF8300).withOpacity(0.8),
+            email: email,
+          ),
+          SizedBox(height: 10),
+          ProductList(
+            title: 'Dairy and Bakery',
             color: Color(0xFFFF8300).withOpacity(0.8),
             email: email,
           ),

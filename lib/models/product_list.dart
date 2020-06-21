@@ -7,24 +7,23 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ProductList extends StatefulWidget {
-  final String url, title, email;
+  final title, email;
   final Color color;
 
-  ProductList({this.url, this.title, this.color, this.email});
+  ProductList({this.title, this.color, this.email});
 
   @override
   _ProductListState createState() =>
-      _ProductListState(url, title, color, email);
+      _ProductListState(title, color, email);
 }
 
 class _ProductListState extends State<ProductList> {
-  String url, title, email;
+  String title, email;
   Color color;
-  _ProductListState(this.url, this.title, this.color, this.email);
+  _ProductListState(this.title, this.color, this.email);
 
   Future<List<Product>> _fetchProducts() async {
-    
-    final response = await http.get(url);
+    final response = await http.get(getByCategoryAPI + this.title);
 
     var data = json.decode(response.body);
 
@@ -47,11 +46,15 @@ class _ProductListState extends State<ProductList> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 24.0,
-                  color: Color(0xFF534747),
+              Expanded(
+                child: Text(
+                  title,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    color: Color(0xFF534747),
+                  ),
                 ),
               ),
               GestureDetector(
@@ -69,6 +72,7 @@ class _ProductListState extends State<ProductList> {
                 },
                 child: Text(
                   "See All",
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 14.0,
                     letterSpacing: 1.0,
@@ -86,6 +90,9 @@ class _ProductListState extends State<ProductList> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return Container(child: Center(child: Text("Loading...")));
+              } else if (snapshot.data.length == 0) {
+                return Container(
+                    child: Center(child: Text("No Products Available.")));
               } else {
                 return ListView.builder(
                   padding: EdgeInsets.only(left: 10, right: 10),
